@@ -1,18 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import type { CollectionEntry } from 'astro:content';
+import BackToTop from '../components/BackToTop.svelte';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import '../styles/blog.css';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-
 <BaseLayout>
-    <link slot="head" rel="stylesheet" href="/public/prism.css" />
 	<h1 class="mt-6 text-3xl xs:text-4xl text-th-primary font-bold">{title}</h1>
     <p class="text-th-secondary pt-2 pb-1 font-serif tracking-wide text-lg">{description}</p>
     <p class="text-th-tertiary font-light pt-1">
@@ -20,10 +20,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     </p>
     <article class="mt-12 blog-content">
       <slot />
+      <div class="p-5 border-t border-t-th-subtle text-center text-md">
+        <BackToTop client:visible />
+      </div>
     </article>
 </BaseLayout>
 
-<style>
+<style is:global>
 .blog-content {
   @apply max-w-prose;
   text-rendering: optimizeLegibility;

@@ -2,7 +2,7 @@
   import { pages } from '../components/pages';
 
   const getLinkStyle = (route) =>
-    `inline-block py-2 text-xs ${
+    `inline-block py-2 text-xs !no-underline ${
       route === Astro.url.pathname
         ? 'font-bold text-th-primary'
         : 'text-th-secondary hover:text-th-primary'
