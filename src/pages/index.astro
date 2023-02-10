@@ -1,31 +1,27 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
 import Section from '../components/Section.astro';
+
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return { props: posts };
+}
+const posts = Astro.props;
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-<!-- 			<Section title="About Me"> -->
-<!--               <div class="mb-6"> -->
-<!--                 <p> -->
-<!--                   Hello, I am a software engineer from London, UK. This website is a sandbox for my thoughts, -->
-<!--                   ideas and experiments. -->
-<!--                 </p> -->
-<!--               </div> -->
-<!--             </Section> -->
-<!--             <Section title="Latest Posts"> -->
-<!--               TODO -->
-<!--             </Section> -->
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout>
+  <Section title="About Me">
+    <div class="mb-6">
+      <p>
+        Hello, I am a software engineer from London, UK. This website is a sandbox for my thoughts,
+        ideas and experiments.
+      </p>
+    </div>
+  </Section>
+  <Section title="Latest Posts">
+    <PostList limit={4} />
+  </Section>
+</BaseLayout>

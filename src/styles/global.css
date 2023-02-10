@@ -1,6 +1,3 @@
-@import './prism-theme.light.css' (prefers-color-scheme: light);
-@import './prism-theme.dark.css' (prefers-color-scheme: dark);
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -59,138 +56,48 @@ pre[class*='language-'] {
   }
 }
 
-@layer base {
-  @media print {
-    :root {
-      font-size: 13px;
-    }
-
-    @page {
-      margin: 2.5cm 1.8cm;
-    }
-  }
-  body {
-    @apply bg-th-background;
+@media print {
+  :root {
+    font-size: 13px;
   }
 
-  p,
-  ul,
-  ol {
-    @apply text-th-secondary;
-  }
-
-  a {
-    @apply text-th-primary decoration-1 hover:underline;
-  }
-
-  a[href*="http"]::after, a[href*="mailto"]::after {
-    @apply inline-block filter brightness-75 print:hidden pl-1 font-light;
-    content: '↗';
-    font-size: 0.7em;
-  }
-
-  a[href*="http"].no-arrow::after, a[href*="mailto"].no-arrow::after {
-    content: '';
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    @apply text-th-primary;
-  }
-
-  h6 {
-    @apply text-th-secondary;
-  }
-
-  .blog-content {
-    @apply max-w-prose;
-    text-rendering: optimizeLegibility;
-    @apply text-lg;
-  }
-
-  .blog-content strong {
-    @apply text-th-primary;
-  }
-
-  .blog-content p,
-  .blog-content .blog-widget,
-  .gatsby-highlight {
-    @apply mb-6;
-    @apply font-sans;
-    @apply text-lg;
-  }
-
-  .blog-content pre {
-    @apply mb-6;
-  }
-
-  .blog-content a {
-    @apply underline underline-offset-2 hover:no-underline;
-  }
-
-  .blog-content ul,
-  .blog-content ol {
-    @apply mb-6 ml-10;
-  }
-
-  .blog-content ul li {
-    @apply list-disc mb-1.5;
-  }
-
-  .blog-content ol li {
-    @apply list-decimal mb-1.5;
-  }
-
-  /* mdsvex generates a <p> element inside unordered lists */
-  .blog-content ol li > p {
-    @apply mb-1.5;
-  }
-
-  .blog-content h1,
-  .blog-content h2,
-  .blog-content h3,
-  .blog-content h4,
-  .blog-content h5,
-  .blog-content h6 {
-    @apply font-bold;
-    @apply mt-3 mb-1.5;
-  }
-
-  .blog-content h1 {
-    @apply text-2xl xs:text-3xl;
-  }
-
-  .blog-content h2 {
-    @apply text-xl xs:text-2xl;
-  }
-
-  .blog-content h3 {
-    @apply text-lg xs:text-xl;
-  }
-
-  .blog-content h4 {
-    @apply text-base xs:text-lg;
-  }
-
-  .blog-content blockquote {
-    @apply pl-5;
-    @apply border-l-4;
-  }
-
-  .blog-content hr {
-    @apply my-6;
+  @page {
+    margin: 2.5cm 1.8cm;
   }
 }
 
-@layer utilities {
-  .max-w-150 {
-    max-width: 150px;
-  }
+body {
+  @apply bg-th-background;
+}
 
-  .top-5 {
-    top: 5%;
-  }
+p,
+ul,
+ol {
+  @apply text-th-secondary;
+}
+
+a {
+  @apply text-th-primary decoration-1 hover:underline;
+}
+
+a[href*="http"]::after, a[href*="mailto"]::after {
+  @apply inline-block filter brightness-75 print:hidden pl-1 font-light;
+  content: '↗';
+  font-size: 0.7em;
+}
+
+a[href*="http"].no-arrow::after, a[href*="mailto"].no-arrow::after {
+  content: '';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @apply text-th-primary;
+}
+
+h6 {
+  @apply text-th-secondary;
 }

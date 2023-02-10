@@ -1,36 +1,38 @@
 ---
-  import Header from '../components/Header.astro';
-  import Section from '../components/Section.astro';
-  import { about as content } from '../content/about';
-  import SummaryItem from '../components/SummaryItem.astro';
-  import PageTitle from '../components/PageTitle.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Section from '../components/Section.astro';
+import { about as content } from '../components/about';
+import SummaryItem from '../components/SummaryItem.astro';
+import PageTitle from '../components/PageTitle.astro';
 
-  const { about, education, experience, projects, skills } = content;
+const { about, education, experience, projects, skills } = content;
 ---
 
-<Header />
-<Section title="About Me">
-  {about.map(line =>
-    <p class="mb-3">{line}</p>
-  )}
-</Section>
-<Section title="Experience">
-    {experience.map(({ name, link, technologies, description, bio }) =>
-      <SummaryItem name={name} link={link} shortDesc={description} longDesc={bio} tags={technologies} />
+<BaseLayout>
+  <Section title="About Me">
+    {about.map(line =>
+      <p class="mb-3">{line}</p>
     )}
-</Section>
-<Section title="Education">
-    {education.map(({ name, link, description, bio }) =>
-      <SummaryItem name={name} link={link} shortDesc={description} longDesc={bio} />
-    )}
-</Section>
-<Section title="Projects">
-    {projects.map(({ name, link, description }) =>
-      <SummaryItem name={name} link={link} shortDesc={description} />
-    )}
-</Section>
-<Section title="Skills">
-    {skills.map(({ name, description }) =>
-      <SummaryItem name={name} shortDesc={description} />
-    )}
-</Section>
+  </Section>
+  <Section title="Experience">
+      {experience.map(({ name, link, technologies, description, bio }) =>
+        <SummaryItem name={name} link={link} shortDesc={description} longDesc={bio} tags={technologies} />
+      )}
+  </Section>
+  <Section title="Education">
+      {education.map(({ name, link, description, bio }) =>
+        <SummaryItem name={name} link={link} shortDesc={description} longDesc={bio} />
+      )}
+  </Section>
+  <Section title="Projects">
+      {projects.map(({ name, link, description }) =>
+        <SummaryItem name={name} link={link} shortDesc={description} />
+      )}
+  </Section>
+  <Section title="Skills">
+      {skills.map(({ name, description }) =>
+        <SummaryItem name={name} shortDesc={description} />
+      )}
+  </Section>
+</BaseLayout>

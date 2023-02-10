@@ -2,21 +2,25 @@ lockfileVersion: 5.4
 
 specifiers:
   '@astrojs/mdx': ^0.16.0
+  '@astrojs/prism': ^2.0.0
   '@astrojs/rss': ^2.1.0
   '@astrojs/sitemap': ^1.0.1
   '@astrojs/svelte': ^2.0.1
   '@astrojs/tailwind': ^3.0.1
   astro: ^2.0.10
+  remark-external-links: ^9.0.1
   svelte: ^3.54.0
   tailwindcss: ^3.0.24
 
 dependencies:
   '@astrojs/mdx': 0.16.0_astro@2.0.10
+  '@astrojs/prism': 2.0.0
   '@astrojs/rss': 2.1.0
   '@astrojs/sitemap': 1.0.1
   '@astrojs/svelte': 2.0.1_astro@2.0.10+svelte@3.55.1
   '@astrojs/tailwind': 3.0.1_jukmciyu6aodegbctarme2zo2y
   astro: 2.0.10
+  remark-external-links: 9.0.1
   svelte: 3.55.1
   tailwindcss: 3.2.6
 
@@ -1823,6 +1827,11 @@ packages:
     resolution: {integrity: sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==}
     dev: false
 
+  /is-absolute-url/4.0.1:
+    resolution: {integrity: sha512-/51/TKE88Lmm7Gc4/8btclNXWS+g50wXhYJq8HWIBAGUBnoAdRu1aXeh364t/O7wXDAcTJDP8PNuNKWUDWie+A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
+
   /is-alphabetical/2.0.1:
     resolution: {integrity: sha512-FWyyY60MeTNyeSRpkM2Iry0G9hpr7/9kD40mD/cGQEuilcZYS4okz8SN2Q6rLCJ8gbCt6fN+rC+6tMGS99LaxQ==}
     dev: false
@@ -3037,6 +3046,19 @@ packages:
       rehype-parse: 8.0.4
       rehype-stringify: 9.0.3
       unified: 10.1.2
+    dev: false
+
+  /remark-external-links/9.0.1:
+    resolution: {integrity: sha512-EYw+p8Zqy5oT5+W8iSKzInfRLY+zeKWHCf0ut+Q5SwnaSIDGXd2zzvp4SWqyAuVbinNmZ0zjMrDKaExWZnTYqQ==}
+    dependencies:
+      '@types/hast': 2.3.4
+      '@types/mdast': 3.0.10
+      extend: 3.0.2
+      is-absolute-url: 4.0.1
+      mdast-util-definitions: 5.1.2
+      space-separated-tokens: 2.0.2
+      unified: 10.1.2
+      unist-util-visit: 4.1.2
     dev: false
 
   /remark-frontmatter/4.0.1:

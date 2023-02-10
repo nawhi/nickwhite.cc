@@ -7,8 +7,15 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 import tailwind from "@astrojs/tailwind";
+import remarkExternalLinks from "remark-external-links";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com', integrations: [mdx(), sitemap(), svelte(), tailwind()]
+  site: 'https://example.com', integrations: [mdx(), sitemap(), svelte(), tailwind()],
+  markdown: {
+    syntaxHighlight: "prism",
+    remarkPlugins: [
+      [ remarkExternalLinks, {target: "_blank", rel: "noopener noreferrer"} ]
+    ],
+  }
 });

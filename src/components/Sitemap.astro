@@ -1,1 +1,20 @@
-<div>Sitemap TODO</div>
+---
+  import { pages } from '../components/pages';
+
+  const getLinkStyle = (route) =>
+    `inline-block py-2 text-xs ${
+      route === Astro.url.pathname
+        ? 'font-bold text-th-primary'
+        : 'text-th-secondary hover:text-th-primary'
+    }`;
+---
+
+<ul class="mt-6 uppercase tracking-wider">
+  {pages.map(({route, name}) =>
+    <li class="inline list-none pr-4">
+      <a class={getLinkStyle(route)} href={route}>
+        {name}
+      </a>
+    </li>
+  )}
+</ul>

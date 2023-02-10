@@ -1,0 +1,2 @@
+@import './prism.light.css' (prefers-color-scheme: light);
+@import './prism.dark.css' (prefers-color-scheme: dark);
