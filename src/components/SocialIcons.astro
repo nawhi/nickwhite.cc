@@ -1,0 +1,20 @@
+---
+  import { siteMetadata } from '../consts';
+  import Icon from '../components/Icon.astro';
+  import SocialIcon from './SocialIcon.astro';
+  import GithubIcon from './icons/GithubIcon.astro';
+  import LinkedInIcon from './icons/LinkedInIcon.astro';
+---
+
+<ul class="m-1 inline-flex items-start gap-1 print:flex print:flex-col">
+<li class="inline list-none pr-2">
+  <SocialIcon href={siteMetadata.github}>
+    <GithubIcon/>
+  </SocialIcon>
+</li>
+<li class="inline list-none pr-2">
+  <SocialIcon href={siteMetadata.github}>
+      <LinkedInIcon/>
+    </SocialIcon>
+</li>
+</ul>

@@ -1,25 +1,31 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
+import SocialIcons from './SocialIcons.astro';
+import Sitemap from './Sitemap.astro';
+import { siteMetadata } from '../consts';
 ---
 
-<header>
-	<h2>
-		{SITE_TITLE}
-	</h2>
-	<nav>
-		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/blog">Blog</HeaderLink>
-		<HeaderLink href="/about">About</HeaderLink>
-		<HeaderLink href="https://twitter.com/astrodotbuild" target="_blank">Twitter</HeaderLink>
-		<HeaderLink href="https://github.com/withastro/astro" target="_blank">GitHub</HeaderLink>
-	</nav>
-</header>
-<style>
-	header {
-		margin: 0em 0 2em;
-	}
-	h2 {
-		margin: 0.5em 0;
-	}
-</style>
+<div class="block mb-6 md:flex print:flex">
+  <div class="w-full max-w-150">
+    <a href="/">
+      <img
+        src="/img/profile.jpg"
+        alt={siteMetadata.name}
+        class="rounded-full transform transition-all duration-150 hover:scale-105"
+      />
+    </a>
+  </div>
+  <div class="flex-none pt-6 md:pt-1 md:flex-1 md:pl-20 print:pl-20">
+    <h1 class="text-4xl xs:text-5xl text-th-primary font-bold leading-tight hover:text-block">
+      <a href="/">{siteMetadata.name}</a>
+    </h1>
+    <p class="text-th-secondary py-1 font-serif text-lg tracking-wide">
+      {siteMetadata.description}
+    </p>
+    <SocialIcons />
+    <div class="print:hidden">
+      <Sitemap />
+    </div>
+    <slot />
+  </div>
+</div>
