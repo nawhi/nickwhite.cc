@@ -4,11 +4,9 @@ pubDate: 2022-04-14
 description: An interactive guide to bit manipulation for the binary novice.
 ---
 
-<script>
-  import BitwiseOperation from '$lib/blog/bitwise-operations-explained/BitwiseOperation.svelte';
-  import BinaryToDecimal from '$lib/blog/bitwise-operations-explained/BinaryToDecimal.svelte';
-  import DecimalToBinary from '$lib/blog/bitwise-operations-explained/DecimalToBinary.svelte';
-</script>
+import BitwiseOperation from '../../components/blog/bitwise-operations-explained/BitwiseOperation.svelte';
+import BinaryToDecimal from '../../components/blog/bitwise-operations-explained/BinaryToDecimal.svelte';
+import DecimalToBinary from '../../components/blog/bitwise-operations-explained/DecimalToBinary.svelte';
 
 **TLDR?** Skip to the [interactive bit](#interactive-bit).
 
@@ -26,16 +24,16 @@ So the first few binary numbers from zero go like this: `0, 1, 10, 11, 100, 101,
 
 Notice that each number with a single leading 1 and trailing zeroes represents a higher power of two:
 
-`&nbsp;&nbsp;&nbsp;1000`&nbsp; = 2<sup>3</sup> = 8<br/>
-`&nbsp;&nbsp;10000`&nbsp; = 2<sup>4</sup> = 16<br/>
-`&nbsp;100000`&nbsp; = 2<sup>5</sup> = 32<br/>
-`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`&nbsp; and so on.
+`1000` = 2<sup>3</sup> = 8<br/>
+`10000` = 2<sup>4</sup> = 16<br/>
+`100000` = 2<sup>5</sup> = 32<br/>
+and so on.
 
 _(Edit: there was previously an error in the above, it read `100` = 2<sup>3</sup>. I have since returned to pre-school, and can now count to three correctly.)_
 
 This applies to `1` as well, because as usual in computer science, we start not with one but with zero.
 
-`&nbsp;1` = 2<sup>0</sup> = 1<br/>
+`1` = 2<sup>0</sup> = 1<br/>
 `10` = 2<sup>1</sup> = 2
 
 To disambiguate between decimal and binary, you might see the binary number prefixed with a zero and a lower-case `b`. So `0b10110` means 22 in binary, not 10,110 in decimal.
@@ -57,7 +55,7 @@ If in step 1 you get a number that is less than `1`, stop. Then the binary resul
 This is much easier to see in practice. (NB: in the demo, `⌊X⌋` means flooring `X`.)
 
 <div class="blog-widget">
-  <DecimalToBinary/>
+  <DecimalToBinary client:visible/>
 </div>
 
 ### Converting binary to decimal
@@ -65,7 +63,7 @@ This is much easier to see in practice. (NB: in the demo, `⌊X⌋` means floori
 Going the other way is a lot easier: sum up the powers of two that have a `1` there, and ignore the ones that have a `0`. Counting from the right makes it more straightforward, as you can start with the lowest powers of two.
 
 <div class="blog-widget">
-  <BinaryToDecimal/>
+  <BinaryToDecimal client:visible/>
 </div>
 
 ### Bitwise operations
@@ -77,7 +75,7 @@ Since each digit takes only two values, we can use Boolean operators (AND, OR, X
 This yields surprising but interesting results. To see it in action for bitwise AND, have a go below.
 
 <div class="blog-widget">
-  <BitwiseOperation/>
+  <BitwiseOperation client:visible/>
 </div>
 
 All high-level programming languages have bitwise operations, and they are often builtins. In JavaScript, bitwise AND and OR are the similar to boolean AND and OR, and there are also XOR and NOT operators - see [here](https://www.w3schools.com/js/js_bitwise.asp) for a full list.
