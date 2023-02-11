@@ -11,7 +11,7 @@ import remarkExternalLinks from "remark-external-links";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com', integrations: [mdx(), sitemap(), svelte(), tailwind()],
+  site: 'https://nickwhite.cc', integrations: [mdx(), sitemap(), svelte(), tailwind()],
   markdown: {
     syntaxHighlight: "prism",
     remarkPlugins: [
