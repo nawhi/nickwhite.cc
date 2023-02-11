@@ -3,7 +3,6 @@ title: A beginners' guide to ads on the internet
 pubDate: 2022-01-16
 updatedDate: 2023-02-11
 description: Ideas for non-techies to get the best out of the world's most powerful tool.
-unlisted: true
 ---
 
 I love the internet - I work in tech, after all, so I make my living from and on it. But maybe you share a nagging feeling I have, that my phone and computer are using you as much as you are using them.
