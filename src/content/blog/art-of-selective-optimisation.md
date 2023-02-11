@@ -28,9 +28,9 @@ Say you have a large React app thoroughly unit-tested throughout. Perhaps it als
 
 If you are someone who likes to work incrementally and run the tests after every change, you will be on your knees - but do you really need to run _all_ the tests after every change?
 
-Jest has a marvellous CLI option, <span style="word-break: keep-all">[`&#8209;&#8209;onlyChanged`](https://jestjs.io/docs/cli#--onlychanged)</span> , that helps out here. With this switch on, Jest will look at Git and run only tests related to files that have changed since the last commit. When working at the leaves of a large dependency tree, this will normally take the test run down to almost instantaneous. 
+Jest has a marvellous CLI option, <span style="word-break: keep-all">[`--onlyChanged`](https://jestjs.io/docs/cli#--onlychanged)</span> , that helps out here. With this switch on, Jest will look at Git and run only tests related to files that have changed since the last commit. When working at the leaves of a large dependency tree, this will normally take the test run down to almost instantaneous. 
     
-In the case that you're working on high-level components that are used everywhere, you'll find that the majority of test files will run even with `&#8209;&#8209;onlyChanged`. Again, though, do you really need to run everything here? You should be able to run only the file that you've been working on and have confidence that nothing else is broken. If you can't do that, then your code violates the dependency inversion principle and your best optimisation is to improve the separation of concerns in the test suite.
+In the case that you're working on high-level components that are used everywhere, you'll find that the majority of test files will run even with `--onlyChanged`. Again, though, do you really need to run everything here? You should be able to run only the file that you've been working on and have confidence that nothing else is broken. If you can't do that, then your code violates the dependency inversion principle and your best optimisation is to improve the separation of concerns in the test suite.
 
 ## Are you blocked by slowness, or just impatient?
 Do any of your colleagues express strong opinions about the slowness? Or is it just that you are at the impatient end of the spectrum?
