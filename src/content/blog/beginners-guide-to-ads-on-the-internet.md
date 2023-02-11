@@ -20,7 +20,7 @@ If you can't switch your desktop browser at the moment, install [uBlock Origin](
 
 When you run an ad blocker, you'll notice that everything loads and runs much faster, because ad scripts place load on your browser. If you're easily distracted, you may find you feel less tired after a session on the internet, because it has become easier to focus without being semi-distracted by noisy background ads.
 
-![Brave Shields in action on the Daily Mail website](/img/dailymail-brave-shields.png)
+![Brave Shields in action](/img/brave-shields.png)
 
 ## Step 2: Opt out of personalised advertising
 
