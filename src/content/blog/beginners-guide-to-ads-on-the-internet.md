@@ -1,37 +1,39 @@
 ---
 title: A beginners' guide to ads on the internet
 pubDate: 2022-01-16
+updatedDate: 2023-02-11
 description: Ideas for non-techies to get the best out of the world's most powerful tool.
 unlisted: true
 ---
 
-I love the internet - I work in tech, after all, so I make my living from and on it. But maybe you share a nagging feeling I have, that my phone and computer are using me as much as I am using them.
+I love the internet - I work in tech, after all, so I make my living from and on it. But maybe you share a nagging feeling I have, that my phone and computer are using you as much as you are using them.
 
-If so, here are some simple steps you can do regardless of technical experience to bring your internet life back to a healthier place.
+If so, here are some simple steps you can take to bring your internet life back to a healthier place. All these steps require no technical experience, and are designed to be accessible and valuable for developers and non-developers alike.
 
 ## Step 1: Install an ad blocker
 
 This is the single best way to improve your internet experience. If you do nothing else, do this!
 
-**_Your task:_ Install and start using [Brave Browser](https://brave.com/), on desktop and mobile.** Brave is almost identical to Chrome, but has built-in industrial-strength ad, tracking, and cookie blockers through its Shields feature.
+**_Your task:_ Install and start using [Brave Browser](https://brave.com/), on desktop and mobile.** Brave is almost identical to Chrome, but has built-in ad, tracking, and cookie blockers through its Shields feature.
 
 If you can't switch your desktop browser at the moment, install [uBlock Origin](https://github.com/gorhill/uBlock#ublock-origin), an ad-blocking extension with similar functionality.
 
-When you run an ad blocker, you'll notice that everything loads and runs much faster, because ad scripts place load on your browser. You may also feel less tired after a session on the internet, because it has become easier to focus without being semi-distracted by noisy background ads.
+When you run an ad blocker, you'll notice that everything loads and runs much faster, because ad scripts place load on your browser. If you're easily distracted, you may find you feel less tired after a session on the internet, because it has become easier to focus without being semi-distracted by noisy background ads.
 
 ![Brave Shields in action on the Daily Mail website](/img/dailymail-brave-shields.png)
 
 ## Step 2: Opt out of personalised advertising
 
-All ad companies are legally required to have an anonymous mode in which they collect no data about you. They are often buried in the settings, but they're always there and able to be turned on.
+All ad companies are legally required (in the UK at least) to have an anonymous mode in which they collect no data about you. They are often buried in the settings, but they're always there and able to be turned on.
 
-**_Your task:_ Do both of the following -**
+**Your task:**
 
 1. **Turn off ad personalisation in Google Ad Center** here: [https://myadcenter.google.com/](https://myadcenter.google.com/). If you have a Google account, sign in and turn it off in there too. (While you are there you may actually _want_ to personalise your ads - ads aren't all bad - but it's worth knowing how to turn it off so you are in control.)
 2. **Turn off ad personalisation in AdChoices**, a collective of Google and hundreds of other ad networks, here: https://www.youronlinechoices.com/uk/your-ad-choices
-3. **Repeat** on all the devices that you most commonly use to access the internet.
+3. **Repeat** for any other social media or software services you use often, on all the devices that you most commonly use to access the internet.
+4. **Check** every few months - personalisation settings have a surprising habit of turning themselves back on.
 
-When you went into Google Ad Settings, you probably saw the section where Google displays everything it knows about you. (Edit 2023: I don't know if this is still there, as mine have been turned off for years). This gives you a picture of the data Google has about you, and you can see how detailed it is and whether you think it's accurate or not.
+When you went into Google Ad Center, you may have seen the section where Google displays everything it knows about you. (Edit 2023: I don't know if this is still there, as mine have been turned off for years). This gives you a picture of the data Google has about you, and you can see how detailed it is and whether you think it's accurate or not.
 
 Want to go further? Consider switching to a privacy-focused search engine like [Startpage](https://startpage.com), [Brave Search](https://search.brave.com) or [DuckDuckGo](https://duckduckgo.com). These collect less personal data than Bing or Google, at the cost of search results that are sometimes less useful.
 
@@ -43,7 +45,11 @@ Ad blockers don’t block everything. You will still see:
 - _sponsored content_ also known as "natural ads", these are bits of the webpage styled to look like the regular page/blog/recipe/article but which were actually paid for
 - _affiliate links_ links to products from otherwise impartial blogs and news articles that will earn the host a small commission if you buy the product
 
-**_Your task:_ When browsing the internet, ask yourself: what on this page is an advertisement?**
+**_Your task:_ When browsing the internet, ask yourself: what on this page is an advertisement?** 
+
+If it's a search result, is it there because it's most relevant to your query, or because someone paid to put it there? If it's a link, is it there because the host gets a commission if you buy it?
+
+It's important not to become completely cynical - after all, advertisements and affiliate programs are far older than the internet. But if you're getting free content, then more often than not you're paying for it somehow. 
 
 ## Step 5: Understand what a good search looks like
 
@@ -68,10 +74,10 @@ These are good searches because they represent facts that are easy to verify, an
 
 ### Searches that the internet is pretty good for, with some caveats
 
-_"Best way to clean sick off a carpet"_<br/>
+_"Best way to clean a wine stain off a carpet"_<br/>
 _"Restaurant nearby open now"_
 
-These will probably get you to a solution, but you may have to trawl through a lot of crap (e.g. "You can't possibly clean sick off a carpet... call Carpet Cleaning 101 for a free quote!"), and you may not end up with the best solution (e.g. a restaurant that spends more time updating their opening hours than cooking nice food).
+These will probably get you to a solution, but you may have to trawl through a lot of sales pitches ("You can't possibly clean a wine stain off a carpet _yourself_... call Carpet Cleaning 101 for a free quote!"), and you may not end up with the best solution (e.g. a restaurant that spends more time updating their opening hours than cooking nice food).
 
 ### Searches that the internet is terrible for
 

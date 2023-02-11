@@ -11,7 +11,6 @@ const posts = await getCollection('blog');
           .map((post) => (
                 <SummaryItem
                   name={post.data.title}
-                  date={post.data.pubDate}
                   shortDesc={post.data.description}
                   link={`/blog/${post.slug}/`}
                 />
