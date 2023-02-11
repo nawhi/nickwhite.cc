@@ -41,7 +41,7 @@ After Copilot, it is as simple as this:
 
 This doesn't just work with JSON-like objects - I've tested it with YAML, SQL, and more. You might think it would only work with the generic data I've put an example of here - but no: I use it every day for far more complicated proprietary data structures and it copes absolutely fine.
 
-Caveats abound, of course. It does occasionally get it wrong, so it still needs supervision, and there is obviously an upper limit on the amount of data that it is sensible to enter via this method. However, when there isn't that much data and the data structure is evolving very fast, the alternative of building a complicated entry UI and updating it every on every data structure change would take far more time.
+Caveats abound, of course. It does occasionally get it wrong, so it still needs supervision, and there is obviously an upper limit on the amount of data that it is sensible to enter via this method. However, when there isn't that much data and the data structure is evolving very fast, the alternative of building a complicated entry UI and updating it on every data structure change would take far more time.
 
 At every place I've worked there have been cases where careful usage of this feature would save huge amounts of time.
 
