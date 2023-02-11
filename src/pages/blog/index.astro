@@ -2,9 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import PostList from '../../components/PostList.astro';
-import { getPostsInOrder } from '../../utils/getPostsInOrder';
-
-const posts = await getPostsInOrder();
 ---
 <BaseLayout>
     <Section title="All Blog Posts">

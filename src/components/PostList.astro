@@ -1,19 +1,20 @@
 ---
 import SummaryItem from '../components/SummaryItem.astro';
-import { getCollection } from 'astro:content';
+import { getPostsInOrder } from '../utils/getPostsInOrder';
+
 
 const { limit } = Astro.props;
-const posts = await getCollection('blog');
+const posts = await getPostsInOrder();
 ---
 
 <ul>
-    {posts.slice(0, limit ?? posts.length)
-          .map((post) => (
-                <SummaryItem
-                  name={post.data.title}
-                  shortDesc={post.data.description}
-                  link={`/blog/${post.slug}/`}
-                />
+    {posts.slice(0, limit ?? posts.length).map((post) => (
+        <SummaryItem
+          name={post.data.title}
+          date={post.data.pubDate}
+          shortDesc={post.data.description}
+          link={`/blog/${post.slug}/`}
+        />
     ))}
     {posts.length > limit && (
         <a class="text-th-tertiary text-sm hover:text-black" href="/blog"> View all posts &rarr; </a>

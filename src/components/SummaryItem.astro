@@ -1,8 +1,9 @@
 ---
   import Link from './Link.astro';
+    import FormattedDate from './FormattedDate.astro';
   import { toArray } from '../utils/toArray';
 
-  const { name, shortDesc, link, longDesc, tags } = Astro.props;
+  const { name, date, shortDesc, link, longDesc, tags } = Astro.props;
 ---
 
 <div class="mb-6">
@@ -41,4 +42,9 @@
       ))}
     </div>
   )}
+  {date && (
+          <div class="text-xs text-th-secondary font-light pb-1 pt-2">
+            <FormattedDate date={date}/>
+          </div>
+        )}
 </div>
