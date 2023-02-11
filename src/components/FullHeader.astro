@@ -1,5 +1,4 @@
 ---
-import HeaderLink from './HeaderLink.astro';
 import SocialIcons from './SocialIcons.astro';
 import Sitemap from './Sitemap.astro';
 import { siteMetadata } from '../consts';
@@ -23,9 +22,7 @@ import { siteMetadata } from '../consts';
       {siteMetadata.description}
     </p>
     <SocialIcons />
-    <div class="print:hidden">
-      <Sitemap />
-    </div>
+    <Sitemap />
     <slot />
   </div>
 </div>

@@ -1,8 +1,11 @@
 ---
 import DotPattern from '../components/DotPattern.astro';
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
+import FullHeader from '../components/FullHeader.astro';
+import MinimalHeader from '../components/MinimalHeader.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const { header = "full" } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +17,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     <div class="relative h-full">
       <DotPattern />
       <div class="p-8 relative max-w-screen-xl xs:p-24 print:xs:p-0">
-        <Header title={SITE_TITLE} />
+        {header === "full" ? <FullHeader /> : <MinimalHeader />}
         <main>
           <slot />
         </main>
