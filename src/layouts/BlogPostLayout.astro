@@ -16,10 +16,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	<h1 class="mt-6 text-3xl xs:text-4xl text-th-primary font-bold">{title}</h1>
     <p class="text-th-secondary pt-2 pb-1 font-serif tracking-wide text-lg">{description}</p>
     <p class="text-th-tertiary font-light pt-1 flex flex-col">
-      <span><FormattedDate date={pubDate} /></span>
+      <span>
+        <FormattedDate date={pubDate} />
+      </span>
       {updatedDate && <span class="text-sm pt-2">Updated <FormattedDate date={updatedDate} /></>}
     </p>
-    <article class="mt-12 blog-content">
+    <article class="mt-12 prose">
       <slot />
       <div class="p-5 border-t border-t-th-subtle text-center text-md">
         <BackToTop client:visible />

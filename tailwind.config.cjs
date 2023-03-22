@@ -21,6 +21,7 @@ module.exports = {
   darkMode: 'media',
 
   plugins: [
+    require('@tailwindcss/typography'),
     function ({addComponents}) {
       addComponents({
         '.max-w-150': { maxWidth: '150px' },
