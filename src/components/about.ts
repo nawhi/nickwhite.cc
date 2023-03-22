@@ -38,7 +38,7 @@ export const about = {
       name: 'DAACI',
       description: ['Senior Frontend Software Engineer, 2022 - pres.'],
       link: 'https://daaci.com',
-      technologies: ['Node.js', 'React.js', 'Next.js', 'TypeScript', 'Material UI', 'Tailwind CSS'],
+      technologies: ['Node.js', 'React.js', 'Next.js', 'SvelteKit', 'TypeScript', 'TailwindCSS'],
       bio: [
         'DAACI is building a composer-focused generative music composition system using machine learning techniques informed by musicology. Its Meta-Composition Interface (MCI) will have applications in realtime gaming soundtracks, fan engagement, and film & TV music composition.',
         'I have been focusing on building out prototypes allowing meta-composition in the browser - in TypeScript / React, using the Web Audio and Web MIDI API.'
