@@ -21,7 +21,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       </span>
       {updatedDate && <span class="text-sm pt-2">Updated <FormattedDate date={updatedDate} /></>}
     </p>
-    <article class="mt-12 prose">
+    <article class="mt-12 blog-content">
       <slot />
       <div class="p-5 border-t border-t-th-subtle text-center text-md">
         <BackToTop client:visible />
