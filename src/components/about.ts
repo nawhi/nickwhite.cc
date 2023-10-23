@@ -6,7 +6,7 @@ export const about = {
   github: 'https://github.com/nawhi',
   linkedin: 'https://www.linkedin.com/in/nick9white/',
   about: [
-    'I am a polyglot developer who likes simple solutions to difficult problems, living documentation, just-in-time design and vague hand-waving about quality and craftsmanship.',
+    'I am a polyglot developer who likes simple solutions to difficult problems, living documentation, just-in-time design and the principles of software craftsmanship.',
     'I believe I owe my success to a habit of ensuring I always have a deep understanding of the technologies I work with.',
     'Before joining the tech industry my background was in music, and I have always felt that software engineering is an art too - fundamentally a creative and collaborative activity.'
   ],
