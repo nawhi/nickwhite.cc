@@ -26,11 +26,6 @@ export const about = {
       name: 'WebStorm Golf',
       description: 'A golf-themed way of learning to use the JetBrains WebStorm IDE',
       link: 'https://github.com/nawhi/webstorm-golf'
-    },
-    {
-      name: 'Cloud Run Auth plugin for Insomnia',
-      description: 'A plugin to add authentication headers for Google Cloud Run endpoints',
-      link: 'https://github.com/nawhi/insomnia-plugin-cloud-run-auth'
     }
   ],
   experience: [
@@ -38,17 +33,18 @@ export const about = {
       name: 'DAACI',
       description: ['Senior Frontend Software Engineer, 2022 - pres.'],
       link: 'https://daaci.com',
-      technologies: ['Node.js', 'React.js', 'Next.js', 'SvelteKit', 'TypeScript', 'TailwindCSS'],
+      technologies: ['TypeScript', 'Node.js', 'React.js', 'Redux', 'Sass', 'PostgreSQL'],
       bio: [
-        'DAACI is building a composer-focused generative music composition system using machine learning techniques informed by musicology. Its Meta-Composition Interface (MCI) will have applications in realtime gaming soundtracks, fan engagement, and film & TV music composition.',
-        'I have been focusing on building out prototypes allowing meta-composition in the browser - in TypeScript / React, using the Web Audio and Web MIDI API.'
+        'DAACI creates composer-focused generative music composition systems using machine learning techniques informed by musicology.',
+        'I have been building out prototypes of an AI-assisted browser-based digital audio workstation, using TypeScript, React, Web Audio and Web MIDI, Next.js, Drizzle ORM and PostgreSQL.',
+        'I have also been supporting the frontend of a web-based registry for DAACI VST plugins.'
       ]
     },
     {
       name: 'Triptease',
       description: ['Senior Software Engineer, 2021 - 2022', 'Software Engineer, 2020 - 2021'],
       link: 'https://triptease.com',
-      technologies: ['Node.js', 'Terraform', 'React.js', 'TypeScript', 'MongoDB'],
+      technologies: ['TypeScript', 'Node.js', 'Terraform', 'React.js', 'MongoDB'],
       bio: [
         'Worked on the Targeted Messages product, including the UI of the messages themselves, a rich content editor with live preview for message creation, content database and CDN, event tracking and analytics platform.',
         'Previously, my team built a feed of hotel prices and scaled it from scratch to serving a million prices a day from over 1,000 hotels. The prices were sourced from user tracking, screen-scraping and algorithmic inference.',
@@ -83,8 +79,7 @@ export const about = {
     },
     {
       name: 'Databases',
-      description:
-        'Postgres (with pleasure), MongoDB (with less pleasure), Google BigQuery, Elasticsearch'
+      description: 'PostgreSQL, MongoDB, Google BigQuery, Elasticsearch'
     },
     {
       name: 'Infrastructure',
@@ -99,7 +94,7 @@ export const about = {
     {
       name: 'Open University',
       description: 'Mathematics modules, part-time, 2022-present',
-      bio: ['Essential Mathematics 1: Distinction (2022)']
+      bio: ['MST124 Essential Mathematics 1: Distinction (2021-22)', 'MST224 Mathematical Methods: WIP (2023-24)']
     },
     {
       name: 'University of Oxford',
