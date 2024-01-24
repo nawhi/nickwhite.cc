@@ -25,14 +25,14 @@ const { about, education, experience, projects, skills } = content;
         <SummaryItem name={name} link={link} shortDesc={description} longDesc={bio} />
       )}
   </Section>
-  <Section title="Projects">
-      {projects.map(({ name, link, description }) =>
-        <SummaryItem name={name} link={link} shortDesc={description} />
-      )}
-  </Section>
   <Section title="Skills">
       {skills.map(({ name, description }) =>
         <SummaryItem name={name} shortDesc={description} />
+      )}
+  </Section>
+  <Section title="Projects">
+      {projects.map(({ name, link, description }) =>
+        <SummaryItem name={name} link={link} shortDesc={description} />
       )}
   </Section>
 </BaseLayout>
