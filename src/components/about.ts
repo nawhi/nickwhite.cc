@@ -37,7 +37,7 @@ export const about = {
       bio: [
         'DAACI creates composer-focused generative music composition systems using machine learning techniques informed by musicology.',
         'I have been building out prototypes of an AI-assisted browser-based digital audio workstation, using TypeScript, React, Web Audio and Web MIDI, Next.js, Drizzle ORM and PostgreSQL.',
-        'I have also been supporting the frontend of a web-based registry for DAACI VST plugins.'
+        'I have also been supporting the frontend of a web-based registry for DAACI VST plugins, and UI design and implementation in the plugins using C++20 and the JUCE framework.'
       ]
     },
     {
