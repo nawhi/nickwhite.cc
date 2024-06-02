@@ -44,17 +44,13 @@ export const about = {
         'PostgreSQL',
       ],
       bio: [
-        'DAACI creates composer-focused generative music composition systems using machine learning techniques informed by musicology.',
-        'I have been building out prototypes of an AI-assisted browser-based digital audio workstation, using TypeScript, React, Web Audio and Web MIDI, Next.js, Drizzle ORM and PostgreSQL.',
-        'I have also been supporting the frontend of a web-based registry for DAACI VST plugins, and UI design and implementation in the plugins using C++20 and the JUCE framework.',
+        'Built out prototypes of an AI-assisted browser-based digital audio workstation, using TypeScript, React, Web Audio and Web MIDI, Next.js, Drizzle ORM and PostgreSQL.',
+        "Also supported UI design and implementation in VST/AU plugins using C++20 and the JUCE framework.",
       ],
     },
     {
       name: 'Triptease',
-      description: [
-        'Senior Software Engineer, 2021 - 2022',
-        'Software Engineer, 2020 - 2021',
-      ],
+      description: ['Software Engineer, 2020 - 2022'],
       link: 'https://triptease.com',
       technologies: [
         'TypeScript',
