@@ -1,112 +1,110 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import type { CollectionEntry } from 'astro:content';
 import BackToTop from '../components/BackToTop.svelte';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import '../styles/blog.css';
 
-type Props = CollectionEntry<'blog'>['data'];
-
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate } = Astro.props;
 ---
 
 <BaseLayout header="minimal">
-	<h1 class="mt-6 text-3xl xs:text-4xl text-th-primary font-bold">{title}</h1>
-    <p class="text-th-secondary pt-2 pb-1 font-serif tracking-wide text-lg">{description}</p>
-    <p class="text-th-tertiary font-light pt-1 flex flex-col">
-      <span>
-        <FormattedDate date={pubDate} />
-      </span>
-      {updatedDate && <span class="text-sm pt-2">Updated <FormattedDate date={updatedDate} /></>}
-    </p>
-    <article class="mt-12 blog-content">
-      <slot />
-      <div class="p-5 border-t border-t-th-subtle text-center text-md">
-        <BackToTop client:visible />
-      </div>
-    </article>
+  <h1 class="mt-6 text-3xl xs:text-4xl text-th-primary font-bold">{title}</h1>
+  <p class="text-th-secondary pt-2 pb-1 font-serif tracking-wide text-lg">
+    {description}
+  </p>
+  <p class="text-th-tertiary font-light pt-1 flex flex-col">
+    <span>
+      <FormattedDate date={pubDate} />
+    </span>
+    {
+      updatedDate && (
+        <span class="text-sm pt-2">
+          Updated <FormattedDate date={updatedDate} />
+        </span>
+      )
+    }
+  </p>
+  <article class="mt-12 blog-content">
+    <slot />
+    <div class="p-5 border-t border-t-th-subtle text-center text-md">
+      <BackToTop client:visible />
+    </div>
+  </article>
 </BaseLayout>
 
 <style is:global>
-.blog-content {
-  @apply max-w-prose;
-  text-rendering: optimizeLegibility;
-  @apply text-lg;
-}
+  .blog-content {
+    @apply max-w-prose;
+    text-rendering: optimizeLegibility;
+    @apply text-lg;
+  }
 
-.blog-content strong {
-  @apply text-th-primary;
-}
+  .blog-content strong {
+    @apply text-th-primary;
+  }
 
-.blog-content p,
-.blog-content .blog-widget,
-.gatsby-highlight {
-  @apply mb-6;
-  @apply font-sans;
-  @apply text-lg;
-}
+  .blog-content p,
+  .blog-content .blog-widget,
+  .gatsby-highlight {
+    @apply mb-6;
+    @apply font-sans;
+    @apply text-lg;
+  }
 
-.blog-content pre {
-  @apply mb-6;
-}
+  .blog-content pre {
+    @apply mb-6;
+  }
 
-.blog-content a {
-  @apply underline underline-offset-2 hover:no-underline;
-}
+  .blog-content a {
+    @apply underline underline-offset-2 hover:no-underline;
+  }
 
-.blog-content ul,
-.blog-content ol {
-  @apply mb-6 ml-10;
-}
+  .blog-content ul,
+  .blog-content ol {
+    @apply mb-6 ml-10;
+  }
 
-.blog-content ul li {
-  @apply list-disc mb-1.5;
-}
+  .blog-content ul li {
+    @apply list-disc mb-1.5;
+  }
 
-.blog-content ol li {
-  @apply list-decimal mb-1.5;
-}
+  .blog-content ol li {
+    @apply list-decimal mb-1.5;
+  }
 
-/* mdsvex generates a <p> element inside unordered lists */
-.blog-content ol li > p {
-  @apply mb-1.5;
-}
+  .blog-content h1,
+  .blog-content h2,
+  .blog-content h3,
+  .blog-content h4,
+  .blog-content h5,
+  .blog-content h6 {
+    @apply font-bold;
+    @apply mt-3 mb-1.5;
+  }
 
-.blog-content h1,
-.blog-content h2,
-.blog-content h3,
-.blog-content h4,
-.blog-content h5,
-.blog-content h6 {
-  @apply font-bold;
-  @apply mt-3 mb-1.5;
-}
+  .blog-content h1 {
+    @apply text-2xl xs:text-3xl;
+  }
 
-.blog-content h1 {
-  @apply text-2xl xs:text-3xl;
-}
+  .blog-content h2 {
+    @apply text-xl xs:text-2xl;
+  }
 
-.blog-content h2 {
-  @apply text-xl xs:text-2xl;
-}
+  .blog-content h3 {
+    @apply text-lg xs:text-xl;
+  }
 
-.blog-content h3 {
-  @apply text-lg xs:text-xl;
-}
+  .blog-content h4 {
+    @apply text-base xs:text-lg;
+  }
 
-.blog-content h4 {
-  @apply text-base xs:text-lg;
-}
+  .blog-content blockquote {
+    @apply pl-5;
+    @apply border-l-4;
+  }
 
-.blog-content blockquote {
-  @apply pl-5;
-  @apply border-l-4;
-}
-
-.blog-content hr {
-  @apply my-6;
-  @apply text-th-subtle;
-}
+  .blog-content hr {
+    @apply my-6;
+    @apply text-th-subtle;
+  }
 </style>

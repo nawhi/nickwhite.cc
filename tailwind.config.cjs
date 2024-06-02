@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        xs: '480px'
-      }
+        xs: '480px',
+      },
     },
     colors: {
       'th-background': 'var(--th-background)',
@@ -15,18 +15,18 @@ module.exports = {
       'th-subtle': 'var(--th-subtle)',
       'th-action': 'var(--th-action)',
       'th-action-focus': 'var(--th-action-focus)',
-      'th-error': 'var(--th-error)'
-    }
+      'th-error': 'var(--th-error)',
+    },
   },
   darkMode: 'media',
 
   plugins: [
     require('@tailwindcss/typography'),
-    function ({addComponents}) {
+    function ({ addComponents }) {
       addComponents({
         '.max-w-150': { maxWidth: '150px' },
-        '.top-5': { top: '5%' }
-      })
-    }
-  ]
-}
+        '.top-5': { top: '5%' },
+      });
+    },
+  ],
+};

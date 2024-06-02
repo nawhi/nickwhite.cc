@@ -51,9 +51,7 @@ server.post('/search', async (req, res) => {
     return res.tooManyRequests();
   }
 
-  return runSearch(search).catch((e) =>
-    res.internalServerError(e.message)
-  );
+  return runSearch(search).catch((e) => res.internalServerError(e.message));
 });
 ```
 
@@ -65,10 +63,7 @@ So you introduce a framework for sending events to an external system as they ha
 
 ```typescript
 interface Monitor {
-  register(
-    event: string,
-    tags: { [k: string]: string }
-  ): void;
+  register(event: string, tags: { [k: string]: string }): void;
 }
 ```
 
@@ -83,7 +78,7 @@ server.post('/search/v2', async (req, res) => {
   if (!isPermitted(search)) {
     monitor.register('search-v2.request-received', {
       outcome: 'forbidden',
-      location: search.location
+      location: search.location,
     });
     return res.forbidden();
   }
@@ -91,7 +86,7 @@ server.post('/search/v2', async (req, res) => {
   if (isTooManyRequests(search)) {
     monitor.register('search-v2.request-received', {
       outcome: 'rate-limited',
-      location: search.location
+      location: search.location,
     });
     return res.tooManyRequests();
   }
@@ -100,13 +95,13 @@ server.post('/search/v2', async (req, res) => {
     const result = await runSearch(search);
     monitor.register('search-v2.request-received', {
       outcome: 'success',
-      location: search.location
+      location: search.location,
     });
     return result;
   } catch (e) {
     monitor.register('search-v2.request-received', {
       outcome: 'error',
-      location: search.location
+      location: search.location,
     });
     return res.internalServerError(e.message);
   }
@@ -126,7 +121,7 @@ For example, consider this nearly identical code:
 ```typescript
 monitor.register('search_v2.request_received', {
   outcome: 'successful',
-  searchLocation: search.location
+  searchLocation: search.location,
 });
 ```
 
@@ -143,16 +138,11 @@ This is where TypeScript comes in handy. Without changing the API of the `monito
 A simple way to so this for the event name would be to use a string union type:
 
 ```typescript
-type Event =
-  | 'search-v2.request-received'
-  | 'searchv2.some-other-system-event';
+type Event = 'search-v2.request-received' | 'searchv2.some-other-system-event';
 // ... and many more ...
 
 interface Monitor {
-  register(
-    event: Event,
-    tags: { [k: string]: string }
-  ): void;
+  register(event: Event, tags: { [k: string]: string }): void;
 }
 ```
 
@@ -165,17 +155,11 @@ This squashes one-third of our possible source of bugs. But we still have two mo
 To get around this, we can declare an object type literal for the `tags` object, and another string union type on the outcome:
 
 ```typescript
-type Event =
-  | 'search-v2.request-received'
-  | 'searchv2.some-other-system-event';
+type Event = 'search-v2.request-received' | 'searchv2.some-other-system-event';
 // ... and many more ...
 
 type Tags = {
-  outcome:
-    | 'success'
-    | 'rate-limited'
-    | 'forbidden'
-    | 'error';
+  outcome: 'success' | 'rate-limited' | 'forbidden' | 'error';
   location: string;
 };
 
@@ -196,7 +180,7 @@ Here's one on an analytics endpoint.
 monitor.register('campaign-v3.impression', {
   source: 'organic',
   campaignCode: 3,
-  experiment: 'visible'
+  experiment: 'visible',
 });
 ```
 
@@ -209,29 +193,18 @@ Our type safety has become a type straitjacket. To solve this, we'll need to com
 ```typescript
 type Events = {
   'search-v2.request-received': {
-    outcome:
-      | 'success'
-      | 'rate-limited'
-      | 'forbidden'
-      | 'error';
+    outcome: 'success' | 'rate-limited' | 'forbidden' | 'error';
     location: string;
   };
   'campaign-v3.impression': {
-    source:
-      | 'organic'
-      | 'search'
-      | 'inquiry'
-      | 'unknown';
+    source: 'organic' | 'search' | 'inquiry' | 'unknown';
     campaignCode: number;
     experiment: 'visible' | 'hidden';
   };
 };
 
 interface Monitor {
-  register<E extends keyof Events>(
-    event: E,
-    tags: Events[E]
-  ): void;
+  register<E extends keyof Events>(event: E, tags: Events[E]): void;
 }
 ```
 
@@ -250,39 +223,28 @@ An alternative is to dispose with the fancy mapped types and create one method p
 ```typescript
 class Monitor {
   registerRequest(
-    outcome:
-      | 'success'
-      | 'rate-limited'
-      | 'forbidden'
-      | 'error',
-    location: string
+    outcome: 'success' | 'rate-limited' | 'forbidden' | 'error',
+    location: string,
   ): void {
     this.register('search-v2.request-received', {
       outcome,
-      location
+      location,
     });
   }
 
   registerImpression(
-    source:
-      | 'organic'
-      | 'search'
-      | 'inquiry'
-      | 'unknown',
+    source: 'organic' | 'search' | 'inquiry' | 'unknown',
     campaignCode: number,
-    experiment: 'visible' | 'hidden'
+    experiment: 'visible' | 'hidden',
   ): void {
     this.register('search-v2.request-received', {
       source,
       campaignCode,
-      meta
+      meta,
     });
   }
 
-  private register(
-    event: string,
-    tags: { [k: string]: string }
-  ) {
+  private register(event: string, tags: { [k: string]: string }) {
     // don't need type safety here anymore
     // because it's a private method now
   }

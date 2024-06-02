@@ -1,7 +1,7 @@
 ---
-title: "In praise of making a mess"
+title: 'In praise of making a mess'
 pubDate: 2023-11-14
-description: "Sometimes more disorder brings more order."
+description: 'Sometimes more disorder brings more order.'
 ---
 
 As a child, when I needed to tidy my room, I’d pull everything out of drawers and shelves and put

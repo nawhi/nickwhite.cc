@@ -80,13 +80,15 @@ a {
   @apply text-th-primary decoration-1 hover:underline;
 }
 
-a[href*="http"]::after, a[href*="mailto"]::after {
+a[href*='http']::after,
+a[href*='mailto']::after {
   @apply inline-block filter brightness-75 print:hidden pl-1 font-light;
   content: '↗';
   font-size: 0.7em;
 }
 
-a[href*="http"].no-arrow::after, a[href*="mailto"].no-arrow::after {
+a[href*='http'].no-arrow::after,
+a[href*='mailto'].no-arrow::after {
   content: '';
 }
 

@@ -59,10 +59,7 @@ Google Maps have a handy API which allows you to programmatically fetch all sort
 Let's use [Google's Node.js SDK](https://github.com/googlemaps/google-maps-services-js), wrapped in a helper class for clarity, to get the address from the place ID for Buckingham Palace, which is a large house in London where the Queen lives.
 
 ```typescript
-import {
-  Client,
-  Place
-} from '@googlemaps/google-maps-services-js';
+import { Client, Place } from '@googlemaps/google-maps-services-js';
 
 class GoogleMapsClient {
   private client: Client = new Client();
@@ -71,14 +68,14 @@ class GoogleMapsClient {
 
   public async getPlaceDetails(
     placeId: string,
-    fields: string[]
+    fields: string[],
   ): Promise<Place> {
     const details = await this.client.placeDetails({
       params: {
         key: this.apiKey,
         place_id: placeId,
-        fields
-      }
+        fields,
+      },
     });
     return details.data.result;
   }
@@ -91,14 +88,10 @@ For instance, this is how we'd use our client to get the address:
 
 ```typescript
 const buckinghamPalace = 'ChIJtV5bzSAFdkgRpwLZFPWrJgo';
-const client = new GoogleMapsClient(
-  process.env.MAPS_API_KEY!
-);
+const client = new GoogleMapsClient(process.env.MAPS_API_KEY!);
 
 client
-  .getPlaceDetails(buckinghamPalace, [
-    'formatted_address'
-  ])
+  .getPlaceDetails(buckinghamPalace, ['formatted_address'])
   .then((details) => console.log({ details }));
 ```
 
@@ -157,12 +150,8 @@ Besides, there's a second problem which is much harder to catch. For example, wh
 
 ```typescript
 client
-  .getPlaceDetails(buckinghamPalace, [
-    'formatted_address'
-  ])
-  .then((details) =>
-    console.log(details.formatted_phone_number)
-  );
+  .getPlaceDetails(buckinghamPalace, ['formatted_address'])
+  .then((details) => console.log(details.formatted_phone_number));
 ```
 
 It compiles, runs and succeeds, but prints out:
@@ -192,7 +181,7 @@ class GoogleMapsClient {
 
   public async getPlaceDetails<K extends keyof Place>(
     placeId: string,
-    fields: K[]
+    fields: K[],
   ): Promise<Pick<Place, K>> {
     // etc
   }
@@ -226,7 +215,7 @@ In theory, I could go one step further and require `fields` to be an array of at
 class GoogleMapsClient {
   public async getPlaceDetails<K extends keyof Place>(
     placeId: string,
-    fields: [K, ...K[]]
+    fields: [K, ...K[]],
   ): Promise<Pick<Place, K>> {
     // etc
   }

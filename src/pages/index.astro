@@ -6,8 +6,8 @@ import Section from '../components/Section.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return { props: posts };
+  const posts = await getCollection('blog');
+  return { props: posts };
 }
 const posts = Astro.props;
 ---
@@ -16,8 +16,8 @@ const posts = Astro.props;
   <Section title="About Me">
     <div class="mb-6">
       <p>
-        Hello, I am a software engineer from London, UK. This website is a sandbox for my thoughts,
-        ideas and experiments.
+        Hello, I am a software engineer from London, UK. This website is a
+        sandbox for my thoughts, ideas and experiments.
       </p>
     </div>
   </Section>

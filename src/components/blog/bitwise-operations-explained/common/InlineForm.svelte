@@ -4,6 +4,15 @@
   const dispatch = createEventDispatcher();
 </script>
 
+<form
+  class="form-with-styled-inputs p-1 flex flex-wrap items-center gap-4"
+  on:submit|preventDefault={(e) =>
+    dispatch('submit', new FormData(e.currentTarget))}
+>
+  <slot />
+  <button type="submit">Go</button>
+</form>
+
 <style lang="postcss">
   :global(.form-with-styled-inputs > input) {
     @apply py-2 px-3 leading-tight;
@@ -16,13 +25,3 @@
     @apply bg-th-action hover:bg-th-action-focus transition-all text-th-background dark:text-th-primary;
   }
 </style>
-
-<form
-  class="form-with-styled-inputs p-1 flex flex-wrap items-center gap-4"
-  on:submit|preventDefault={(e) => {
-    dispatch('submit', new FormData(e.target));
-  }}
->
-  <slot />
-  <button type="submit">Go</button>
-</form>

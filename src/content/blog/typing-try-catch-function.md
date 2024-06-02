@@ -20,9 +20,7 @@ If you get an error code, you'll need to send it to support, but if not, there's
 The code might look something like this:
 
 ```typescript
-const { status, body } = await yourFavouriteHttpClient(
-  '/dodgy-api'
-);
+const { status, body } = await yourFavouriteHttpClient('/dodgy-api');
 if (status !== 200) {
   let errorCode: string;
   try {
@@ -38,9 +36,7 @@ If you're doing this sort of thing a lot, it can make the code quite difficult t
 result if it throws an error:
 
 ```typescript
-function safe(
-  action: () => string
-): string | undefined {
+function safe(action: () => string): string | undefined {
   try {
     return action();
   } catch (_) {}
@@ -52,9 +48,7 @@ Now it looks much cleaner:
 ```typescript
 const result = yourFavouriteHttpClient('/dodgy-api');
 if (result.status !== 200) {
-  const errorCode = safe(
-    () => JSON.parse(result.bodyString).code
-  );
+  const errorCode = safe(() => JSON.parse(result.bodyString).code);
   if (errorCode) {
     await sendToSupport(errorCode);
   }
@@ -84,9 +78,7 @@ If we used `safe()`, we could turn this into a single expression:
 ```typescript
 function formatCurrency(rawValue: string): string {
   const money = safe(() => parseMoney(rawValue));
-  return money
-    ? money.toShortString()
-    : INVALID_CURRENCY_WARNING;
+  return money ? money.toShortString() : INVALID_CURRENCY_WARNING;
 }
 ```
 
@@ -107,9 +99,7 @@ Now we can pass any function that takes no arguments and returns some object, an
 ```typescript
 // safe<T>() inferred to safe<Date>()
 // foo inferred to Date | undefined
-const foo = safe(() =>
-  new Date('12 Jun').toISOString()
-);
+const foo = safe(() => new Date('12 Jun').toISOString());
 
 // safe<T>() inferred to safe<Money>()
 // bar inferred to Money | undefined
@@ -128,7 +118,7 @@ It's sometimes nice to design this from the call site, so that you get an idea o
 function formatCurrency(rawValue: string): string {
   return safe(
     () => parseMoney(rawValue).toShortString(),
-    INVALID_CURRENCY_WARNING
+    INVALID_CURRENCY_WARNING,
   );
 }
 ```
@@ -136,10 +126,7 @@ function formatCurrency(rawValue: string): string {
 How could we type the second argument? Here's a quick fix that makes the compiler happy:
 
 ```typescript
-function safe<T>(
-  action: () => T,
-  defaultResult: any
-): T | undefined {
+function safe<T>(action: () => T, defaultResult: any): T | undefined {
   try {
     return action();
   } catch (_) {
@@ -177,18 +164,12 @@ function safe<T>(action: () => T): T | undefined {
 }
 
 // Requirement 2: action returns a type, defaultResult is same type
-function safe<T>(
-  action: () => T,
-  defaultResult: T
-): T {
+function safe<T>(action: () => T, defaultResult: T): T {
   // etc
 }
 
 // Requirement 3: action returns a type, defaultResult is a different type
-function safe<T, U>(
-  action: () => T,
-  defaultResult: U
-): T | U {
+function safe<T, U>(action: () => T, defaultResult: U): T | U {
   // etc
 }
 ```
@@ -199,14 +180,8 @@ Then we can compose the two remaining signatures into a single declaration using
 
 ```typescript
 function safe<T>(action: () => T): T | undefined;
-function safe<T, U>(
-  action: () => T,
-  defaultResult: U
-): T | U;
-function safe<T, U>(
-  action: () => T,
-  defaultResult?: U
-): T | U | undefined {
+function safe<T, U>(action: () => T, defaultResult: U): T | U;
+function safe<T, U>(action: () => T, defaultResult?: U): T | U | undefined {
   try {
     return action();
   } catch (_) {
@@ -222,10 +197,7 @@ One of my guiding rules in writing code is not to introduce complexity unless it
 In this case, we could make the signature much simpler by making the optional default parameter mandatory. This would also make more explicit some behaviour that is currently a bit difficult to see at first glance: that the function returns `undefined` on error if you don't give it a second parameter.
 
 ```typescript
-function safe<T, U>(
-  action: () => T,
-  defaultResult: U
-): T | U {
+function safe<T, U>(action: () => T, defaultResult: U): T | U {
   try {
     return action();
   } catch (_) {

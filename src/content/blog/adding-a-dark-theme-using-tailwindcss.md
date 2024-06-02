@@ -8,14 +8,13 @@ As someone who spends pretty much their entire working life staring at a compute
 
 For me, as for many other developers, this has meant embracing dark mode in a lot of apps that I use.
 
-The jury is still out on whether light-on-dark or dark-on-light is actually better for one's eyes, but from I've found that on all but the sunniest days I prefer the darker tones of a colour scheme like [Dracula](https://www.draculatheme.com) to anything in "light mode". 
-
+The jury is still out on whether light-on-dark or dark-on-light is actually better for one's eyes, but from I've found that on all but the sunniest days I prefer the darker tones of a colour scheme like [Dracula](https://www.draculatheme.com) to anything in "light mode".
 
 Given this, it was only natural that I should look to add a dark mode to my website.
 
 ### How Tailwind works
 
-My site is built with Tailwind CSS. Tailwind is a framework which uses small utility classes to style your HTML. 
+My site is built with Tailwind CSS. Tailwind is a framework which uses small utility classes to style your HTML.
 
 Tailwind's most talked-about advantage is that your styles are in the actual HTML, so you don't have to tab back and forth between a separate CSS file (or a `styled.div` declared 50 lines above) to see the style of an element.
 
@@ -27,8 +26,7 @@ A great example is its [colour palette](https://tailwindcss.com/docs/customizing
 <body class="bg-white">
   <h1 class="text-gray-900">Welcome to the blog</h1>
   <p class="text-gray-600">
-    Hello and welcome to Nick's website. Lorem ipsum.
-    Etc.
+    Hello and welcome to Nick's website. Lorem ipsum. Etc.
   </p>
 </body>
 ```
@@ -57,12 +55,9 @@ So I copied all my colour classes, changed them to the dark scheme colours, and 
 
 ```html
 <body class="bg-white dark:bg-slate-900">
-  <h1 class="text-zinc-800 dark:text-slate-300">
-    Welcome to the blog
-  </h1>
+  <h1 class="text-zinc-800 dark:text-slate-300">Welcome to the blog</h1>
   <p class="text-zinc-600 dark:text-slate-400">
-    Hello and welcome to Nick's website. Lorem ipsum.
-    Etc.
+    Hello and welcome to Nick's website. Lorem ipsum. Etc.
   </p>
 </body>
 ```
@@ -83,15 +78,15 @@ Now the CSS looks like this:
 }
 
 @media (prefers-color-scheme: dark) {
-  dark\\:.bg-slate-900 {
+  dark\\: .bg-slate-900 {
     background-color: #111827;
   }
 
-  dark\\:.text-slate-300 {
+  dark\\: .text-slate-300 {
     color: #cbd5e1;
   }
 
-  dark\\:.text-slate-400 {
+  dark\\: .text-slate-400 {
     color: #94a3b8;
   }
 }
@@ -103,16 +98,15 @@ You probably spotted the issues with this format before I did. Firstly, it's a h
 
 I realised that I would need to declare upfront which colours I wanted to use in a mode-agnostic way. I decided to follow an approach I'd seen at work, where we had a theme with "primary" and "secondary" colours. I also added a "background" colour, as obviously my background could not remain white in the dark colour scheme.
 
+### Creating a colour palette
 
-### Creating a colour palette 
 My code could now look like this:
 
 ```html
 <body class="bg-background">
   <h1 class="text-primary">Welcome to the blog</h1>
   <p class="text-secondary">
-    Hello and welcome to Nick's website. Lorem ipsum.
-    Etc.
+    Hello and welcome to Nick's website. Lorem ipsum. Etc.
   </p>
 </body>
 ```
@@ -145,10 +139,10 @@ module.exports = {
     extend: {
       colors: {
         primary: 'var(--primary)',
-        secondary: 'var(--secondary)'
-      }
-    }
-  }
+        secondary: 'var(--secondary)',
+      },
+    },
+  },
 };
 ```
 
@@ -165,10 +159,8 @@ This time, CSS itself stepped in with some pure magic of its own. I discovered t
 The syntax looks like this:
 
 ```css
-@import './prism-theme.light.css'
-  (prefers-color-scheme: light);
-@import './prism-theme.dark.css'
-  (prefers-color-scheme: dark);
+@import './prism-theme.light.css' (prefers-color-scheme: light);
+@import './prism-theme.dark.css' (prefers-color-scheme: dark);
 ```
 
 This code loads the light file if the user has light mode enabled (or ["has not expressed an active preference"](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)). If the user has dark mode enabled, it loads the dark file.

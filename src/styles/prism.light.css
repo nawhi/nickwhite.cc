@@ -9,9 +9,10 @@ Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/b
 */
 code[class*='language-'],
 pre[class*='language-'] {
-  font-family: Consolas, Menlo, Monaco, 'Andale Mono WT', 'Andale Mono', 'Lucida Console',
-    'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono',
-    'Nimbus Mono L', 'Courier New', Courier, monospace;
+  font-family: Consolas, Menlo, Monaco, 'Andale Mono WT', 'Andale Mono',
+    'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono',
+    'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L',
+    'Courier New', Courier, monospace;
   font-size: 14px;
   line-height: 1.375;
   direction: ltr;
@@ -171,5 +172,9 @@ pre > code.highlight {
     rgba(29, 31, 33, 0.2) 70%,
     rgba(29, 31, 33, 0)
   ) !important;
-  background: linear-gradient(to right, rgba(29, 31, 33, 0.2) 70%, rgba(29, 31, 33, 0)) !important;
+  background: linear-gradient(
+    to right,
+    rgba(29, 31, 33, 0.2) 70%,
+    rgba(29, 31, 33, 0)
+  ) !important;
 }

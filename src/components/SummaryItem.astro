@@ -1,50 +1,56 @@
 ---
-  import Link from './Link.astro';
-    import FormattedDate from './FormattedDate.astro';
-  import { toArray } from '../utils/toArray';
+import Link from './Link.astro';
+import FormattedDate from './FormattedDate.astro';
+import { toArray } from '../utils/toArray';
 
-  const { name, date, shortDesc, link, longDesc, tags } = Astro.props;
+const { name, date, shortDesc, link, longDesc, tags } = Astro.props;
 ---
 
 <div class="mb-6">
   <div class="print:break-inside-avoid">
     <h3 class="font-semibold text-th-primary pb-1">
-      { link ? (
-        <div>
-          <Link href={link}>{name}</Link>
-          <div class="hidden print:block text-xs font-light">{link}</div>
-        </div>
-        ) : name}
+      {
+        link ? (
+          <div>
+            <Link href={link}>{name}</Link>
+            <div class="hidden print:block text-xs font-light">{link}</div>
+          </div>
+        ) : (
+          name
+        )
+      }
     </h3>
     <div class="text-lg text-th-secondary font-light">
-      <div class={longDesc ? 'italic': ""}>
-        {toArray(shortDesc).map((line, i) => (
-          <p class="pt-1">{line}</p>
-        ))}
+      <div class={longDesc ? 'italic' : ''}>
+        {toArray(shortDesc).map((line, i) => <p class="pt-1">{line}</p>)}
       </div>
     </div>
   </div>
-  {tags && tags.length > 0 && (
-    <ul class="text-xs flex flex-wrap gap-2 pt-2 pb-1">
-      {tags.map(tag => (
-        <li
-          class="px-2 dark:bg-th-subtle rounded-full border border-th-subtle dark:text-th-primary"
-        >
-          {tag}
-        </li>
-      ))}
-    </ul>
-  )}
-  {longDesc && (
-    <div class="text-base text-th-tertiary pt-1">
-      {toArray(longDesc).map(line => (
-        <p class="pt-1 pb-1">{line}</p>
-      ))}
-    </div>
-  )}
-  {date && (
-          <div class="text-xs text-th-secondary font-light pb-1 pt-2">
-            <FormattedDate date={date}/>
-          </div>
-        )}
+  {
+    tags && tags.length > 0 && (
+      <ul class="text-xs flex flex-wrap gap-2 pt-2 pb-1">
+        {tags.map((tag) => (
+          <li class="px-2 dark:bg-th-subtle rounded-full border border-th-subtle dark:text-th-primary">
+            {tag}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    longDesc && (
+      <div class="text-base text-th-tertiary pt-1">
+        {toArray(longDesc).map((line) => (
+          <p class="pt-1 pb-1">{line}</p>
+        ))}
+      </div>
+    )
+  }
+  {
+    date && (
+      <div class="text-xs text-th-secondary font-light pb-1 pt-2">
+        <FormattedDate date={date} />
+      </div>
+    )
+  }
 </div>

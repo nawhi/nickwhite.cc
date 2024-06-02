@@ -10,13 +10,14 @@ description: Amid the controversy, it still has great use cases.
 >
 > I think it's a great tool, and I think it's a great tool for a lot of people. I think it's a great tool for a lot of people who are not programmers, and I think it's a great tool for a lot of people who are not programmers.
 
-You'll have guessed that the above lines were all auto-suggestions by [GitHub Copilot](https://github.com/features/copilot), an AI pair-programming tool. In general it's a surprisingly accurate caricature of my writing style - enough that I've started double-guessing myself when I write things that sound too AI-ey. 
+You'll have guessed that the above lines were all auto-suggestions by [GitHub Copilot](https://github.com/features/copilot), an AI pair-programming tool. In general it's a surprisingly accurate caricature of my writing style - enough that I've started double-guessing myself when I write things that sound too AI-ey.
 
 (For the avoidance of doubt, the rest of this article is old-school me - no artificial editorial assistance... for better or for worse.)
 
 Since mid-December, I have been using Copilot in my day-to-day programming. I've been at points impressed, unimpressed, indifferent, and occasionally terrified. This post is an update on my thoughts about it. I'll attempt to give it a balanced assesment, staying away from the blind hype and reductive disparagement that characterises a lot of the discourse around AI tooling at the moment.
 
 ## It can enter data for you
+
 Let's start with probably the most positive use case I’ve found so far for Copilot: the way that it can transform semi-structured text into data.
 
 Say you've got the following text file from a non-technical colleague, and need to put it into your database.
@@ -46,9 +47,10 @@ Caveats abound, of course. It does occasionally get it wrong, so it still needs 
 At every place I've worked there have been cases where careful usage of this feature would save huge amounts of time.
 
 ## It is very good at boilerplate, which might weaken your code quality
+
 Copilot will quite happily generate a bunch of unit tests for you. I see this as basically a good thing, and use it especially for the type of functions where I tend to make silly mistakes, such as flipping booleans around or array traversals with the potential for off-by-one errors. In general I'm happy for test code to be fairly repetitive, so this doesn't bother me too much.
 
-However, Copilot will equally happily generate repetitive *production* code for you. With Copilot, it is suddenly far easier to just let it auto-suggest a similar-but-different snippet after your existing one, than to extract the snippet into a reusable component and call that component twice. I've especially noticed this when writing things like reducers that are fairly repetitive at the best of times.
+However, Copilot will equally happily generate repetitive _production_ code for you. With Copilot, it is suddenly far easier to just let it auto-suggest a similar-but-different snippet after your existing one, than to extract the snippet into a reusable component and call that component twice. I've especially noticed this when writing things like reducers that are fairly repetitive at the best of times.
 
 This really changes the dynamics of coding. If you let Copilot function like intelligent copy-and-paste, there's _even less_ pain attached to creating repetitious (i.e. buggy & difficult-to-maintain) code. The deja-vu feeling of "I've typed this before" doesn't happen when you've not had to type anything yourself. Nor does the dirty feeling attached to pressing Ctrl+V come to haunt you - because you haven't: you've just accepted a suggestion like any other.
 
@@ -56,14 +58,16 @@ I've learned to listen much more carefully to signals that the bit of code I'm w
 
 There is a flipside to this, of course. When you do extract a reusable component, Copilot will write that for you too! So it's not all bad.
 
-## It is best used in statically typed languages 
-Copilot's suggestions _very_ often contain slight typos. For instance it might substitute `firstname` for `firstName`. 
+## It is best used in statically typed languages
 
-This is fine if you're working in an environment where this kind of error will be immediately caught by a compiler, perhaps even underlined for you in your IDE via a language server. 
+Copilot's suggestions _very_ often contain slight typos. For instance it might substitute `firstname` for `firstName`.
+
+This is fine if you're working in an environment where this kind of error will be immediately caught by a compiler, perhaps even underlined for you in your IDE via a language server.
 
 It's not fine if you're an environment with no static analysis (e.g. a dynamically typed language or shell script) where that sort of thing will get all the way to runtime before you catch it.
 
 ## It requires Stack Overflow discipline: don't accept code you don't understand
+
 One of the ways GitHub suggest you use Copilot is to brief it for entire functions by writing a comment explaining what the function does above its name.
 
 I don't like using it this way.
@@ -77,8 +81,8 @@ Consider this code which was entirely a Copilot suggestion from my made-up brief
 const pickBrains = (obj) => {
   if (obj === null) {
     return obj;
-  } else if (typeof obj === "string") {
-    return obj === "brains" ? obj : null;
+  } else if (typeof obj === 'string') {
+    return obj === 'brains' ? obj : null;
   } else if (Array.isArray(obj)) {
     return obj.map(pickBrains).filter((x) => x !== null);
   } else {
@@ -91,17 +95,18 @@ const pickBrains = (obj) => {
     }
     return result;
   }
-}
+};
 ```
 
 It's _probably_ fine... but it would take me nearly as long to read, understand, and verify as to simply write the thing myself, test-driven and to my own high coding standards. And it is so very tempting to skip or gloss over that verification step.
 
-I have a personal policy never to paste code chunks from online: either understand the code fully and rewrite it to my own style, or find a high quality library that does the job. If it's an emergency, I break the rule only with an [editor fold](https://www.jetbrains.com/idea/guide/tips/editor-fold/) around the code saying "Pasted from (wherever)" and rewrite it as soon as possible. 
+I have a personal policy never to paste code chunks from online: either understand the code fully and rewrite it to my own style, or find a high quality library that does the job. If it's an emergency, I break the rule only with an [editor fold](https://www.jetbrains.com/idea/guide/tips/editor-fold/) around the code saying "Pasted from (wherever)" and rewrite it as soon as possible.
 
 Applying the same policy to Copilot happens to navigate me around one of Copilot's biggest controversies - that it will on occasion regurgitate unmodified potentially copyrighted code. Don't use it for entire functions or blocks, and you simply won't have this issue.
 
 ## Conclusion
-Overall I've been very impressed - enough to pay for a Copilot subscription going forward. 
+
+Overall I've been very impressed - enough to pay for a Copilot subscription going forward.
 
 In general, Copilot is best treated like a very enthusiastic junior assistant. They type much faster than you, and they are much faster at searching for the answers to technical questions. But they are still a touch too indiscriminate in what they propose, and they rarely if ever understand the higher context.
 

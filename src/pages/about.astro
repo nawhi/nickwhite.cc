@@ -11,28 +11,45 @@ const { about, education, experience, projects, skills } = content;
 
 <BaseLayout>
   <Section title="About Me">
-    {about.map(line =>
-      <p class="mb-3">{line}</p>
-    )}
+    {about.map((line) => <p class="mb-3">{line}</p>)}
   </Section>
   <Section title="Experience">
-      {experience.map(({ name, link, technologies, description, bio }) =>
-        <SummaryItem name={name} link={link} shortDesc={description} longDesc={bio} tags={technologies} />
-      )}
+    {
+      experience.map(({ name, link, technologies, description, bio }) => (
+        <SummaryItem
+          name={name}
+          link={link}
+          shortDesc={description}
+          longDesc={bio}
+          tags={technologies}
+        />
+      ))
+    }
   </Section>
   <Section title="Education">
-      {education.map(({ name, link, description, bio }) =>
-        <SummaryItem name={name} link={link} shortDesc={description} longDesc={bio} />
-      )}
+    {
+      education.map(({ name, link, description, bio }) => (
+        <SummaryItem
+          name={name}
+          link={link}
+          shortDesc={description}
+          longDesc={bio}
+        />
+      ))
+    }
   </Section>
   <Section title="Skills">
-      {skills.map(({ name, description }) =>
+    {
+      skills.map(({ name, description }) => (
         <SummaryItem name={name} shortDesc={description} />
-      )}
+      ))
+    }
   </Section>
   <Section title="Projects">
-      {projects.map(({ name, link, description }) =>
+    {
+      projects.map(({ name, link, description }) => (
         <SummaryItem name={name} link={link} shortDesc={description} />
-      )}
+      ))
+    }
   </Section>
 </BaseLayout>

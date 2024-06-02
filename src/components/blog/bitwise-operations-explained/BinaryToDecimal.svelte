@@ -4,13 +4,9 @@
 
   let binary: string;
   let ready = false;
-
-  // language=RegExp
-  const binaryPattern = '[01]+';
 </script>
 
 <Form
-  class="p-1 flex flex-row"
   on:submit={(e) => {
     ready = true;
     binary = e.detail.get('number1');

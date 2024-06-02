@@ -1,6 +1,6 @@
 # nickwhite.cc
 
-The source code for my website, [nickwhite.cc](https://nickwhite.cc). 
+The source code for my website, [nickwhite.cc](https://nickwhite.cc).
 
 It is based on the [devfolio template by Ryan Fitzgerald](https://github.com/RyanFitzgerald/devfolio), and built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
 

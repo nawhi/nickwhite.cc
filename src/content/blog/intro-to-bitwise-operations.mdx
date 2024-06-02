@@ -55,7 +55,7 @@ If in step 1 you get a number that is less than `1`, stop. Then the binary resul
 This is much easier to see in practice. (NB: in the demo, `⌊X⌋` means flooring `X`.)
 
 <div class="blog-widget">
-  <DecimalToBinary client:visible/>
+  <DecimalToBinary client:visible />
 </div>
 
 ### Converting binary to decimal
@@ -63,7 +63,7 @@ This is much easier to see in practice. (NB: in the demo, `⌊X⌋` means floori
 Going the other way is a lot easier: sum up the powers of two that have a `1` there, and ignore the ones that have a `0`. Counting from the right makes it more straightforward, as you can start with the lowest powers of two.
 
 <div class="blog-widget">
-  <BinaryToDecimal client:visible/>
+  <BinaryToDecimal client:visible />
 </div>
 
 ### Bitwise operations
@@ -75,7 +75,7 @@ Since each digit takes only two values, we can use Boolean operators (AND, OR, X
 This yields surprising but interesting results. To see it in action for bitwise AND, have a go below.
 
 <div class="blog-widget">
-  <BitwiseOperation client:visible/>
+  <BitwiseOperation client:visible />
 </div>
 
 All high-level programming languages have bitwise operations, and they are often builtins. In JavaScript, bitwise AND and OR are the similar to boolean AND and OR, and there are also XOR and NOT operators - see [here](https://www.w3schools.com/js/js_bitwise.asp) for a full list.
@@ -101,7 +101,7 @@ function logic(options) {
 logic({
   isAdmin: false,
   hasLoggedInBefore: true,
-  eligibleForUpgrade: true
+  eligibleForUpgrade: true,
   /* etc... */
 });
 ```

@@ -24,7 +24,9 @@
 </InlineForm>
 {#if ready}
   {#if number > 2048}
-    <div class="text-th-error font-semibold">Please enter a number between 0 and 2048</div>
+    <div class="text-th-error font-semibold">
+      Please enter a number between 0 and 2048
+    </div>
   {:else}
     <Calculation {number} />
   {/if}

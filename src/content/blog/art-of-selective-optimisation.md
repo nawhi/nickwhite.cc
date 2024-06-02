@@ -13,6 +13,7 @@ I learned about concurrency in Jest, JavaScript and TypeScript ASTs, and transpi
 If you're in a similar situation, step out onto the balcony for a moment and ask yourself the following questions.
 
 ## Is this slow thing actually the bottleneck?
+
 Imagine you're styling a dialog that is buried inside three sub-menus in your app. You start the app, wait 10 seconds for it to compile, then it shows the index page. You navigate to the dialog to see whether your CSS changes have worked.
 
 In this case, the biggest bottleneck is not the ten-second build. It is the 20 seconds you spent _clicking to get to the dialog_.
@@ -24,15 +25,17 @@ You can solve this by moving to building your UIs in a visual testing tool like 
 In sum - speeding up your workflow does not have to be purely technical. It may involve the things _you_ do, as well as the things your computer does.
 
 ## Is your system doing unnecessary work?
-Say you have a large React app thoroughly unit-tested throughout. Perhaps it also has end-to-end tests that render entire pages. It probably uses React Testing Library, which is a fantastic way to test React code, but is slower than a herd of turtles. Test runs of five, ten or twenty minutes are not uncommon in this scenario. 
+
+Say you have a large React app thoroughly unit-tested throughout. Perhaps it also has end-to-end tests that render entire pages. It probably uses React Testing Library, which is a fantastic way to test React code, but is slower than a herd of turtles. Test runs of five, ten or twenty minutes are not uncommon in this scenario.
 
 If you are someone who likes to work incrementally and run the tests after every change, you will be on your knees - but do you really need to run _all_ the tests after every change?
 
-Jest has a marvellous CLI option, <span style="word-break: keep-all">[`--onlyChanged`](https://jestjs.io/docs/cli#--onlychanged)</span> , that helps out here. With this switch on, Jest will look at Git and run only tests related to files that have changed since the last commit. When working at the leaves of a large dependency tree, this will normally take the test run down to almost instantaneous. 
-    
+Jest has a marvellous CLI option, <span style="word-break: keep-all">[`--onlyChanged`](https://jestjs.io/docs/cli#--onlychanged)</span> , that helps out here. With this switch on, Jest will look at Git and run only tests related to files that have changed since the last commit. When working at the leaves of a large dependency tree, this will normally take the test run down to almost instantaneous.
+
 In the case that you're working on high-level components that are used everywhere, you'll find that the majority of test files will run even with `--onlyChanged`. Again, though, do you really need to run everything here? You should be able to run only the file that you've been working on and have confidence that nothing else is broken. If you can't do that, then your code violates the dependency inversion principle and your best optimisation is to improve the separation of concerns in the test suite.
 
 ## Are you blocked by slowness, or just impatient?
+
 Do any of your colleagues express strong opinions about the slowness? Or is it just that you are at the impatient end of the spectrum?
 
 This is a subtle one and it's difficult to get right. Sometimes I have pushed on with an optimisation even when it seemed totally pointless to my colleagues, but after it was finished, it was worth it for everyone. Other times it was only my individual productivity that benefited. Other times still, I've cut my losses after far too much yak-shaving and nobody missed the prize that I was after.
@@ -44,6 +47,7 @@ On the other hand, there's also often a sweet spot where the cost of inappropria
 Understanding the difference between simple impatience, and a necessary adjustment to your environment for personal success, is very hard.
 
 ## What might you lose by making this faster?
+
 In web development, build tools tend to be fast or flexible, not both. This means that the faster you want to be, the more you'll be forced into a small set of features. For instance, at the time of writing, [`esbuild`](https://esbuild.github.io/) is the fastest JavaScript bundler by a country mile, but it doesn't support dynamic imports, which are very common in larger apps.
 
 You might be tempted to drop some features to shoehorn your app into a faster build tool. But what might you lose by doing that? If it makes the app harder to work with and debug, then the build speed bump might not be worth it.
@@ -51,4 +55,5 @@ You might be tempted to drop some features to shoehorn your app into a faster bu
 I came across an example of this with a CSS-in-JS library called [Styled Components](https://styled-components.com/). It comes with a [Babel plugin](https://styled-components.com/docs/tooling#babel-plugin) to improve the developer experience when working locally. When I migrated the code base away from Babel, I halved the build time - but suddenly, without the dev tool plugin, finding our way around was painfully slow. The verdict from my colleagues was unanimous - good dev tooling and a slow build is better than bad dev tooling and a fast build.
 
 ## Conclusion
+
 If a part of your workflow feels slow, it is a great time for a "balcony break", whether it's an actual balcony, or a colleague, or a rubber duck. Consider the workflow in its entirety and try to get the lowest-hanging fruit first. The biggest culprit in an inefficient workflow is often not the most obvious.
