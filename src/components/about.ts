@@ -31,7 +31,7 @@ export const about = {
   experience: [
     {
       name: 'DAACI',
-      description: ['Senior Frontend Software Engineer, 2022 - pres.'],
+      description: ['Senior Frontend Software Engineer, 2022 - 2024'],
       link: 'https://daaci.com',
       technologies: ['TypeScript', 'Node.js', 'React.js', 'Redux', 'Sass', 'PostgreSQL'],
       bio: [
