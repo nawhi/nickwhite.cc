@@ -112,8 +112,8 @@ export const about = {
       name: 'Open University',
       description: 'Mathematics modules, part-time, 2022-present',
       bio: [
-        'MST124 Essential Mathematics 1: Distinction (2021-22)',
-        'MST224 Mathematical Methods: WIP (2023-24)',
+        'MST124 Essential Mathematics 1: Distinction (2022)',
+        'MST224 Mathematical Methods: Distinction (2024)',
       ],
     },
     {
