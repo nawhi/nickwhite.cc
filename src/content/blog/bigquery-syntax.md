@@ -85,7 +85,7 @@ QUALIFY
 	RANK() OVER (PARTITION BY department ORDER BY salary DESC) <= 2;
 ```
 
-[Docs on QUALIFY clause](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#qualify_clause)
+[Docs on QUALIFY](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#qualify_clause)
 
 ### Timestamp +/- operator overloading
 
@@ -123,8 +123,8 @@ SELECT
   DATE(CURRENT_DATE() - INTERVAL 1 DAY) as date_yesterday
 ```
 
+[Docs on interval arithmetic](https://cloud.google.com/bigquery/docs/reference/standard-sql/operators#interval_arithmetic_operators)
 
-[Docs on date arithmetics](https://cloud.google.com/bigquery/docs/reference/standard-sql/operators#date_arithmetics_operators)
 ### IF() and IFNULL() functions
 CASE WHEN is great for heavily branched logic, but for a single condition IF() is usually easier to read. There is also the shorthand IFNULL() for null checks.
 
@@ -144,6 +144,10 @@ SELECT
   IFNULL(type, 'unknown') as type;
   
 ```
+
+[Docs on IF()](https://cloud.google.com/bigquery/docs/reference/standard-sql/conditional_expressions#if)
+
+[Docs on IFNULL()](https://cloud.google.com/bigquery/docs/reference/standard-sql/conditional_expressions#ifnull)
 
 ### IS DISTINCT FROM
 This is a much more readable way to check for inequality, handling nulls as a regular value, not the insane way that they are handled by default.
@@ -166,6 +170,8 @@ SELECT
 FROM employee_details;
 ```
 
+[Docs on IS DISTINCT FROM](https://cloud.google.com/bigquery/docs/reference/standard-sql/operators#is_distinct)
+
 ## EXCEPT DISTINCT
 
 Old:
@@ -182,3 +188,5 @@ SELECT * FROM table1
 EXCEPT DISTINCT
 SELECT * FROM table2;
 ```
+
+[Docs on EXCEPT](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#except)
