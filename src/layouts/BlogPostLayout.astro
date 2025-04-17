@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BackToTop from '../components/BackToTop.svelte';
 import FormattedDate from '../components/FormattedDate.astro';
 import '../styles/blog.css';
 
@@ -27,7 +26,12 @@ const { title, description, pubDate, updatedDate } = Astro.props;
   <article class="mt-12 blog-content">
     <slot />
     <div class="p-5 border-t border-t-th-subtle text-center text-md">
-      <BackToTop client:visible />
+      <button
+        class="text-th-tertiary !no-underline cursor-pointer"
+        onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      >
+        Back to top
+      </button>
     </div>
   </article>
 </BaseLayout>
