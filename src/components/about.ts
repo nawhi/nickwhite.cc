@@ -32,6 +32,24 @@ export const about = {
   ],
   experience: [
     {
+      name: 'Triptease',
+      description: ['Senior Software Engineer, 2024 - present'],
+      link: 'https://triptease.com',
+      technologies: [
+        'TypeScript',
+        'Node.js',
+        'Cloudflare Workers',
+        'Lit',
+        'BigQuery',
+        'PostgreSQL',
+      ],
+      bio: [
+        'Designed and delivered a new version of Triptease Personalization, a website messaging product for hotels, which is currently in alpha.',
+        'Migrated a terabyte-scale analytics pipeline from Airflow to BigQuery scheduled queries, introducing test coverage and backfilling historic data.',
+        'Triptease engineers work full-stack, including all development, ops and SRE, pair-programming in small autonomous squads.',
+      ],
+    },
+    {
       name: 'DAACI',
       description: ['Senior Frontend Software Engineer, 2022 - 2024'],
       link: 'https://daaci.com',
@@ -45,7 +63,7 @@ export const about = {
       ],
       bio: [
         'Built out prototypes of an AI-assisted browser-based digital audio workstation, using TypeScript, React, Web Audio and Web MIDI, Next.js, Drizzle ORM and PostgreSQL.',
-        "Also supported UI design and implementation in VST/AU plugins using C++20 and the JUCE framework.",
+        'Also supported UI design and implementation in VST/AU plugins using C++20 and the JUCE framework.',
       ],
     },
     {
@@ -60,9 +78,9 @@ export const about = {
         'MongoDB',
       ],
       bio: [
-        'Worked on the Targeted Messages product, including the UI of the messages themselves, a rich content editor with live preview for message creation, content database and CDN, event tracking and analytics platform.',
-        'Previously, my team built a feed of hotel prices and scaled it from scratch to serving a million prices a day from over 1,000 hotels. The prices were sourced from user tracking, screen-scraping and algorithmic inference.',
-        'Triptease engineers work full-stack, including all development, ops and SRE, in small autonomous squads.',
+        'Worked on Triptease Personalization, a website messaging product for hotels, including message components, a rich WYSIWYG content editor, NoSQL database and CDN, event tracking and analytics platform.',
+        'Previously, built a feed of hotel prices and scaled it from scratch to serving a million prices a day from over 1,000 hotels. The prices were sourced from user tracking, screen-scraping and algorithmic inference.',
+        'Triptease engineers work full-stack, including all development, ops and SRE, pair-programming in small autonomous squads.',
       ],
     },
     {
