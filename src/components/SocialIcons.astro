@@ -5,15 +5,17 @@ import GithubIcon from './icons/GithubIcon.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
 ---
 
-<ul class="m-1 inline-flex items-start gap-1 print:flex print:flex-col">
-  <li class="inline list-none pr-2">
-    <SocialIcon href={siteMetadata.github}>
-      <GithubIcon />
-    </SocialIcon>
-  </li>
-  <li class="inline list-none pr-2">
-    <SocialIcon href={siteMetadata.linkedin}>
-      <LinkedInIcon />
-    </SocialIcon>
-  </li>
-</ul>
+<nav class="m-1 inline-flex items-start gap-1 print:flex print:flex-col">
+  <ul class="contents">
+    <li class="inline list-none pr-2">
+      <SocialIcon href={siteMetadata.github} label="GitHub profile">
+        <GithubIcon />
+      </SocialIcon>
+    </li>
+    <li class="inline list-none pr-2">
+      <SocialIcon href={siteMetadata.linkedin} label="LinkedIn profile">
+        <LinkedInIcon />
+      </SocialIcon>
+    </li>
+  </ul>
+</nav>

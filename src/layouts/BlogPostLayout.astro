@@ -25,14 +25,14 @@ const { title, description, pubDate, updatedDate } = Astro.props;
   </p>
   <article class="mt-12 blog-content">
     <slot />
-    <div class="p-5 border-t border-t-th-subtle text-center text-md">
+    <footer class="p-5 border-t border-t-th-subtle text-center text-md">
       <button
         class="text-th-tertiary !no-underline cursor-pointer"
         onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
       >
         Back to top
       </button>
-    </div>
+    </footer>
   </article>
 </BaseLayout>
 
