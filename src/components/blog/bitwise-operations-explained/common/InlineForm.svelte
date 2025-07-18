@@ -17,7 +17,7 @@
   :global(.form-with-styled-inputs > input) {
     @apply py-2 px-3 leading-tight;
     @apply shadow appearance-none focus:outline-none border rounded;
-    @apply border-th-subtle dark:bg-th-subtle placeholder-th-tertiary text-th-primary;
+    @apply border-th-subtle dark:bg-th-subtle placeholder-th-tertiary dark:placeholder-th-secondary text-th-primary;
   }
 
   :global(.form-with-styled-inputs > button) {
