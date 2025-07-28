@@ -44,7 +44,7 @@ export const about = {
         'PostgreSQL',
       ],
       bio: [
-        'Designed and delivered a new version of Triptease Personalization, a website messaging product for hotels, which is currently in alpha.',
+        'Designed and delivered a new version of Triptease Personalization, a website messaging product for hotels, from scratch to general availability.',
         'Migrated a terabyte-scale analytics pipeline from Airflow to BigQuery scheduled queries, introducing test coverage and backfilling historic data.',
         'Triptease engineers work full-stack, including all development, ops and SRE, pair-programming in small autonomous squads.',
       ],
