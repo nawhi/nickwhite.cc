@@ -3,10 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import '../styles/blog.css';
 
-const { title, description, pubDate, updatedDate } = Astro.props;
+const { title, description, pubDate, updatedDate, image } = Astro.props;
 ---
 
-<BaseLayout header="minimal">
+<BaseLayout header="minimal" title={title} description={description} image={image}>
   <h1 class="mt-6 text-3xl xs:text-4xl text-th-primary font-bold">{title}</h1>
   <p class="text-th-secondary pt-2 pb-1 font-serif tracking-wide text-lg">
     {description}

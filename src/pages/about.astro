@@ -1,15 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
 import Section from '../components/Section.astro';
 import { about as content } from '../components/about';
 import SummaryItem from '../components/SummaryItem.astro';
-import PageTitle from '../components/PageTitle.astro';
 
 const { about, education, experience, projects, skills } = content;
 ---
 
-<BaseLayout>
+<BaseLayout title="About" piped image="/img/profile.jpg">
   <Section title="About Me">
     {about.map((line) => <p class="mb-3">{line}</p>)}
   </Section>
