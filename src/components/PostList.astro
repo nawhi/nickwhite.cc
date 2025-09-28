@@ -1,6 +1,6 @@
 ---
 import SummaryItem from '../components/SummaryItem.astro';
-import { getPostsInOrder } from '../utils/getPostsInOrder';
+import { getPostDate, getPostsInOrder } from '../utils/getPostsInOrder';
 
 const { limit } = Astro.props;
 const posts = await getPostsInOrder();
@@ -13,7 +13,7 @@ const posts = await getPostsInOrder();
       .map((post) => (
         <SummaryItem
           name={post.data.title}
-          date={post.data.pubDate}
+          date={getPostDate(post)}
           shortDesc={post.data.description}
           link={`/blog/${post.slug}/`}
         />
