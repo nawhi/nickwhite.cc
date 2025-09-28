@@ -21,3 +21,7 @@ pnpm build
 # to run the built site locally
 pnpm preview
 ```
+
+## Credits
+
+[Steppe image](/public/img/steppe.jpg): Photo by <a href="https://unsplash.com/@alexvagler?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Aleksandr Sobolev</a> on <a href="https://unsplash.com/photos/a-grassy-field-with-trees-and-clouds-in-the-sky-qqPlK-TjLTM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
