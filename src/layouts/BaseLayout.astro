@@ -3,7 +3,7 @@ import DotPattern from '../components/DotPattern.astro';
 import BaseHead from '../components/BaseHead.astro';
 import FullHeader from '../components/FullHeader.astro';
 import MinimalHeader from '../components/MinimalHeader.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from '../consts';
 
 const {
   header = 'full',
@@ -11,6 +11,7 @@ const {
   piped = false,
   description = SITE_DESCRIPTION,
   image = '/img/steppe.jpg',
+  author = SITE_NAME,
 } = Astro.props;
 
 const title = piped ? `${pageTitle} | ${SITE_TITLE}` : pageTitle || SITE_TITLE;
@@ -19,7 +20,7 @@ const title = piped ? `${pageTitle} | ${SITE_TITLE}` : pageTitle || SITE_TITLE;
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={image} />
+    <BaseHead title={title} description={description} image={image} author={author} />
     <slot name="head" />
   </head>
   <body>

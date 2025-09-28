@@ -11,4 +11,5 @@ export const siteMetadata = {
 };
 
 export const SITE_TITLE = siteMetadata.title;
+export const SITE_NAME = siteMetadata.name;
 export const SITE_DESCRIPTION = siteMetadata.description;
