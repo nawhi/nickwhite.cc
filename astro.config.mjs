@@ -18,5 +18,9 @@ export default defineConfig({
     remarkPlugins: [
       [remarkExternalLinks, { target: '_blank', rel: 'noopener noreferrer' }],
     ],
+    remarkRehype: {
+      footnoteLabel: ' ',
+      footnoteBackContent: '↑'
+    }
   },
 });
