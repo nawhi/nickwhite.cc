@@ -88,7 +88,8 @@ a[href*='mailto']::after {
 }
 
 a[href*='http'].no-arrow::after,
-a[href*='mailto'].no-arrow::after {
+a[href*='mailto'].no-arrow::after,
+a[href^='/']::after {
   content: '';
 }
 
