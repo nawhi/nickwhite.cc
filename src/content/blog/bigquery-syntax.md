@@ -2,6 +2,7 @@
 title: BigQuery syntax I wish I'd known sooner
 description: These can save a lot of typing and complexity.
 pubDate: 2024-11-17
+updatedDate: 2025-08-07
 ---
 
 If you've ever used BigQuery, you'll know it's an absolute beast of a warehouse, and its flavour of SQL (GoogleSQL) is fantastically deep and useful once you get into it.
@@ -87,11 +88,36 @@ QUALIFY
 
 [Docs on QUALIFY](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#qualify_clause)
 
+### ROLLUP
+
+If you add the `ROLLUP` keyword to certain types of `GROUP BY` clauses, it will add a row with total aggregates. For example:
+
+```sql
+SELECT
+  department,
+  AVG(salary) AS avg_salary
+FROM employees
+GROUP BY ROLLUP (department)
+```
+
+will prepend to the results a row with aggregates against those columns for the entire table:
+
+```text
+|     department     |  avg_salary  |
+| ------------------ | ------------ |
+| null               | 45000        |
+| department_1       | 40000        |
+| department_2       | 45000        |
+| department_3       | 50000        |
+```
+
+[Docs on ROLLUP](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#group_by_rollup)
+
 ### Timestamp +/- operator overloading
 
 I find this nicer because the polarity (plus or minus) is no longer hidden in the function name.
 
-You can also use the WEEK interval with operators, which oddly doesn't work with TIMESTAMP_ADD/TIMESTAMP_SUB. 
+You can also use the WEEK interval with operators, which oddly doesn't work with TIMESTAMP_ADD/TIMESTAMP_SUB.
 
 Old:
 
@@ -126,12 +152,13 @@ SELECT
 [Docs on interval arithmetic](https://cloud.google.com/bigquery/docs/reference/standard-sql/operators#interval_arithmetic_operators)
 
 ### IF() and IFNULL() functions
+
 CASE WHEN is great for heavily branched logic, but for a single condition IF() is usually easier to read. There is also the shorthand IFNULL() for null checks.
 
 Old:
 
 ```sql
-SELECT 
+SELECT
   CASE WHEN weight > 5 THEN 'large' ELSE 'small' END as size,
   CASE WHEN type IS NULL then 'unknown' ELSE type AS type;
 ```
@@ -139,10 +166,10 @@ SELECT
 New:
 
 ```sql
-SELECT 
+SELECT
   IF(weight > 5, 'large', 'small'),
   IFNULL(type, 'unknown') as type;
-  
+
 ```
 
 [Docs on IF()](https://cloud.google.com/bigquery/docs/reference/standard-sql/conditional_expressions#if)
@@ -150,6 +177,7 @@ SELECT
 [Docs on IFNULL()](https://cloud.google.com/bigquery/docs/reference/standard-sql/conditional_expressions#ifnull)
 
 ### IS DISTINCT FROM
+
 This is a much more readable way to check for inequality, handling nulls as a regular value, not the insane way that they are handled by default.
 
 Old:
@@ -175,8 +203,9 @@ FROM employee_details;
 ## EXCEPT DISTINCT
 
 Old:
+
 ```sql
-SELECT * FROM table1 
+SELECT * FROM table1
 LEFT JOIN table2 USING (id)
 WHERE table2.id IS NULL;
 ```
