@@ -8,7 +8,6 @@ export const about = {
   about: [
     'I am a polyglot developer who likes simple solutions to difficult problems, living documentation, just-in-time design and the principles of software craftsmanship.',
     'I believe I owe my success to a habit of ensuring I always have a deep understanding of the technologies I work with.',
-    'Before joining the tech industry my background was in music, and I have always felt that software engineering is an art too - fundamentally a creative and collaborative activity.',
   ],
   projects: [
     {
@@ -38,13 +37,14 @@ export const about = {
       technologies: [
         'TypeScript',
         'Node.js',
-        'Cloudflare Workers',
-        'Lit',
+        'Cloudflare',
         'BigQuery',
         'PostgreSQL',
+        'Python',
+        'React.js',
       ],
       bio: [
-        'Designed and delivered a new version of Triptease Personalization, a website messaging product for hotels, from scratch to general availability.',
+        'Designed and delivered a new version of <a href="https://www.triptease.com/en/personalization">Triptease Messages</a>, a website messaging product for hotels, from scratch to general availability.',
         'Migrated a terabyte-scale analytics pipeline from Airflow to BigQuery scheduled queries, introducing test coverage and backfilling historic data.',
         'Triptease engineers work full-stack, including all development, ops and SRE, pair-programming in small autonomous squads.',
       ],
@@ -53,17 +53,10 @@ export const about = {
       name: 'DAACI',
       description: ['Senior Frontend Software Engineer, 2022 - 2024'],
       link: 'https://daaci.com',
-      technologies: [
-        'TypeScript',
-        'Node.js',
-        'React.js',
-        'Redux',
-        'Sass',
-        'PostgreSQL',
-      ],
+      technologies: ['TypeScript', 'Node.js', 'React.js', 'PostgreSQL', 'C++'],
       bio: [
-        'Built out prototypes of an AI-assisted browser-based digital audio workstation, using TypeScript, React, Web Audio and Web MIDI, Next.js, Drizzle ORM and PostgreSQL.',
-        'Also supported UI design and implementation in VST/AU plugins using C++20 and the JUCE framework.',
+        'Prototyped an AI-assisted browser-based digital audio workstation, using Web Audio and Web MIDI, TypeScript/React and PostgreSQL.',
+        'Supported UI design and implementation in VST/AU plugins using C++20 and the JUCE framework.',
       ],
     },
     {
@@ -99,7 +92,7 @@ export const about = {
       link: 'https://filmlight.ltd.uk',
       technologies: ['C', 'C++', '*nix'],
       bio: [
-        'Worked on button-mapping software for hardware interfaces on a film post-processing system. Worked across the full stack from usability testing and UI implementation down to optimising the display drivers. Also wrote an xUnit-style unit test framework for the in-house scripting language to aid in testing my code.',
+        'Worked on button-mapping software for hardware interfaces on a film post-processing system. Worked across the full stack from usability testing and UI implementation down to optimising the display drivers. Wrote an xUnit-style unit test framework for the in-house scripting language to aid in testing my code.',
         'As an intern, built automated testing harnesses, helped maintain the FilmLight intranet, and built developer workstations.',
       ],
     },
@@ -108,7 +101,7 @@ export const about = {
     {
       name: 'Languages & Frameworks',
       description:
-        'JavaScript, TypeScript, Node.js, React, Java, Kotlin, C++, Python, Clojure',
+        'JavaScript, TypeScript, Node.js, Python, C++, Clojure, Kotlin',
     },
     {
       name: 'Databases',
@@ -117,7 +110,7 @@ export const about = {
     {
       name: 'Infrastructure',
       description:
-        'Amazon Web Services, Google Cloud Platform, Terraform, Airflow',
+        'Google Cloud Platform, Amazon Web Services, Terraform, Airflow',
     },
     {
       name: 'Methodologies',
@@ -128,10 +121,12 @@ export const about = {
   education: [
     {
       name: 'Open University',
-      description: 'Mathematics modules, part-time, 2022-present',
+      description: 'Mathematics modules, 2022-present',
       bio: [
-        'MST124 Essential Mathematics 1: Distinction (2022)',
-        'MST224 Mathematical Methods: Distinction (2024)',
+        '<a href="https://www.open.ac.uk/courses/qualifications/details/mst124/">Essential Mathematics 1</a> (2022, distinction)',
+        '<a href="https://www.open.ac.uk/courses/qualifications/details/mst224/">Mathematical Methods</a> (2024, distinction)',
+        '<a href="https://www.open.ac.uk/courses/qualifications/details/mst125/">Essential Mathematics 2</a> (2025, distinction)',
+        '<a href="https://www.open.ac.uk/courses/qualifications/details/m248/">Analysing Data</a> (2026, tbc)',
       ],
     },
     {

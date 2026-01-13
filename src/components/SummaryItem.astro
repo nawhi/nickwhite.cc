@@ -41,7 +41,7 @@ const { name, date, shortDesc, link, longDesc, tags } = Astro.props;
     longDesc && (
       <div class="text-base text-th-tertiary pt-1">
         {toArray(longDesc).map((line) => (
-          <p class="pt-1 pb-1">{line}</p>
+          <p class="pt-1 pb-1" set:html={line}></p>
         ))}
       </div>
     )
