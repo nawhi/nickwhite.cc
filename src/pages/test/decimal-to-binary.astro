@@ -1,6 +1,6 @@
 ---
-import DecimalToBinary from '../../components/blog/bitwise-operations-explained/DecimalToBinary.svelte';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import DecimalToBinary from '../../components/blog/bitwise-operations-explained/DecimalToBinary.astro';
 
 if (import.meta.env.PROD) {
   return Astro.rewrite('/404');
@@ -8,5 +8,5 @@ if (import.meta.env.PROD) {
 ---
 
 <BaseLayout header="none">
-  <DecimalToBinary client:load />
+  <DecimalToBinary />
 </BaseLayout>

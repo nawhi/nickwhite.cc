@@ -1,6 +1,6 @@
 ---
-import BitwiseOperation from '../../components/blog/bitwise-operations-explained/BitwiseOperation.svelte';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BitwiseOperation from '../../components/blog/bitwise-operations-explained/BitwiseOperation.astro';
 
 if (import.meta.env.PROD) {
   return Astro.rewrite('/404');
@@ -8,5 +8,5 @@ if (import.meta.env.PROD) {
 ---
 
 <BaseLayout header="none">
-  <BitwiseOperation client:load />
+  <BitwiseOperation />
 </BaseLayout>

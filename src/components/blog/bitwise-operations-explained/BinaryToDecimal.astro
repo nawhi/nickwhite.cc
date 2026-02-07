@@ -1,0 +1,144 @@
+<script>
+  export class BinaryToDecimal extends HTMLElement {
+    connectedCallback() {
+      this.render();
+    }
+
+    createNumberGrid(rows, cols) {
+      const grid = document.createElement('div');
+      grid.className = 'font-mono text-3xl grid gap-4 justify-items-start';
+      grid.style.gridTemplateRows = `repeat(${rows}, minmax(0, 1fr))`;
+      grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+      return grid;
+    }
+
+    showCalculation(binary) {
+      const container = document.createElement('div');
+
+      const grid = this.createNumberGrid(3, binary.length);
+
+      // Row 1: Binary digits
+      for (let i = 0; i < binary.length; i++) {
+        const cell = document.createElement('div');
+        const digit = binary[i];
+        cell.className =
+          digit === '0'
+            ? 'h-full text-th-tertiary'
+            : 'h-full text-th-primary font-bold';
+        cell.textContent = digit;
+        grid.appendChild(cell);
+      }
+
+      // Row 2: Powers of 2
+      for (let i = 0; i < binary.length; i++) {
+        const cell = document.createElement('div');
+        const powerOfTwo = binary.length - (i + 1);
+        cell.className =
+          binary[i] === '0'
+            ? 'text-sm pt-4 text-th-tertiary'
+            : 'text-sm pt-4 text-th-primary font-bold';
+        cell.innerHTML = `2<sup>${powerOfTwo}</sup>`;
+        grid.appendChild(cell);
+      }
+
+      // Row 3: Decimal values
+      for (let i = 0; i < binary.length; i++) {
+        const cell = document.createElement('div');
+        const powerOfTwo = binary.length - (i + 1);
+        cell.className =
+          binary[i] === '0'
+            ? 'text-sm pt-4 text-th-tertiary'
+            : 'text-sm pt-4 text-th-primary font-bold';
+        cell.textContent = Math.pow(2, powerOfTwo);
+        grid.appendChild(cell);
+      }
+
+      container.appendChild(grid);
+
+      const summary = document.createElement('div');
+      summary.className = 'font-mono text-th-primary pt-10';
+
+      const decimalDigits = [];
+      for (let i = 0; i < binary.length; i++) {
+        if (binary[i] !== '0') {
+          const powerOfTwo = binary.length - (i + 1);
+          decimalDigits.push(Math.pow(2, powerOfTwo));
+        }
+      }
+
+      if (decimalDigits.length) {
+        const result = decimalDigits.reduce((a, b) => a + b, 0);
+        const strong = document.createElement('strong');
+        strong.textContent = String(result);
+        summary.append(
+          `0b${binary} = ${decimalDigits.join(' + ')} =\u00A0`,
+          strong,
+        );
+      } else {
+        summary.textContent = `0b${binary} = 0`;
+      }
+
+      container.appendChild(summary);
+
+      return container;
+    }
+
+    render() {
+      const form = document.createElement('form');
+      form.className = 'p-1 flex flex-wrap items-center gap-4';
+
+      const input = document.createElement('input');
+      input.className =
+        'py-2 px-3 leading-tight shadow appearance-none focus:outline-none border rounded border-th-subtle dark:bg-th-subtle placeholder-th-tertiary dark:placeholder-th-secondary text-th-primary';
+      input.required = true;
+      input.name = 'number1';
+      input.placeholder = 'Enter a binary number';
+      input.inputMode = 'numeric';
+
+      const button = document.createElement('button');
+      button.type = 'submit';
+      button.className =
+        'py-2 px-4 rounded font-bold focus:outline-none bg-th-action hover:bg-th-action-focus transition-all text-th-background dark:text-th-primary';
+      button.textContent = 'Go';
+
+      form.appendChild(input);
+      form.appendChild(button);
+
+      const resultContainer = document.createElement('div');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const binary = input.value;
+
+        resultContainer.innerHTML = '';
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'py-4';
+
+        if (/[^01]/.test(binary)) {
+          const error = document.createElement('div');
+          error.className = 'text-th-error font-semibold';
+          error.textContent =
+            'Please enter a binary number, consisting only of digits 0 and 1';
+          wrapper.appendChild(error);
+        } else if (binary.length > 12) {
+          const error = document.createElement('div');
+          error.className = 'text-th-error font-semibold';
+          error.textContent = 'Please enter no more than twelve digits';
+          wrapper.appendChild(error);
+        } else {
+          wrapper.appendChild(this.showCalculation(binary));
+        }
+
+        resultContainer.appendChild(wrapper);
+      });
+
+      this.appendChild(form);
+      this.appendChild(resultContainer);
+    }
+  }
+
+  customElements.define('binary-to-decimal', BinaryToDecimal);
+</script>
+
+<binary-to-decimal></binary-to-decimal>
