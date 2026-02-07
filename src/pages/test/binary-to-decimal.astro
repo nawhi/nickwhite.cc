@@ -1,0 +1,12 @@
+---
+import BinaryToDecimal from '../../components/blog/bitwise-operations-explained/BinaryToDecimal.svelte';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+if (import.meta.env.PROD) {
+  return Astro.rewrite('/404');
+}
+---
+
+<BaseLayout header="none">
+  <BinaryToDecimal client:load />
+</BaseLayout>

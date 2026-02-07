@@ -13,10 +13,10 @@
   $: {
     powersOfTwoReversed = [...Array(binary.length).keys()].reverse();
     decimalDigitsReversed = descendingSeq(binary.length)
-      .filter((powerOfTwo, ix) => binary[ix] !== '0')
+      .filter((_, ix) => binary[ix] !== '0')
       .map((powerOfTwo) => Math.pow(2, powerOfTwo));
 
-    result = decimalDigitsReversed.reduce((a, b) => a + b);
+    result = decimalDigitsReversed.reduce((a, b) => a + b, 0);
   }
 </script>
 
@@ -50,7 +50,9 @@
   {/each}
 </NumberGrid>
 <div class="font-mono text-th-primary pt-10">
-  0b{binary} = {decimalDigitsReversed.join(' + ')} =&nbsp;<strong
-    >{result}</strong
-  >
+  {#if decimalDigitsReversed.length}
+    0b{binary} = {decimalDigitsReversed.join(' + ')} =&nbsp;<strong>{result}</strong>
+  {:else}
+    0b{binary} = 0
+  {/if}
 </div>
