@@ -29,6 +29,16 @@ test.describe('Pages Visual Regression', async () => {
         .first()
         .waitFor({ state: 'visible', timeout: 5000 });
 
+      // Pause any video elements and hide controls for stable screenshots
+      await page.evaluate(() => {
+        const videos = document.querySelectorAll('video');
+        videos.forEach((video) => {
+          video.pause();
+          video.currentTime = 0;
+          video.controls = false;
+        });
+      });
+
       // Take a screenshot of the main content
       const main = page.locator('main').first();
 
