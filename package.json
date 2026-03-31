@@ -27,6 +27,9 @@
     "tailwindcss": "^3.4.17"
   },
   "packageManager": "pnpm@10.28.2",
+  "pnpm": {
+    "onlyBuiltDependencies": []
+  },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^24.10.11",
