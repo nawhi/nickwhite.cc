@@ -79,7 +79,7 @@ For example, it might be useful for an agent to add comments to a particular iss
 
 In such cases I like to write and host a small HTTP/MCP service in a different Docker container on my host machine, then given the sandbox network access to them. The service owns its own credentials and implements only the particular actions I think the agent will need.
 
-These endpoints can be one-off or reusable, and can be coded to do useful stuff beyond regular IAM. Here's one I made that exposes BigQuery SQL access with a lifetime query cost cap: https://github.com/nawhi/bq-agent-gateway
+These endpoints can be one-off or reusable, and can be coded to do useful stuff beyond regular IAM. [Here's one I made](https://github.com/nawhi/bq-agent-gateway) that exposes BigQuery SQL access with a lifetime query cost cap.
 
 ## Drawbacks
 ### All this takes time
