@@ -1,6 +1,6 @@
 ---
 title: Running unsupervised coding agents safely
-description: Investigating ways to get out of the permissions loop.
+description: Could this be the end of approval fatigue?
 pubDate: 2026-05-02
 ---
 
