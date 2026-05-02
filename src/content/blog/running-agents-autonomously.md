@@ -53,7 +53,7 @@ It's very easy not to realise what is actually available to your agent, especial
 ### Sandboxing
 This is the first thing to reach for to reduce the surface area of what the agent can access, both in terms of filesystem access and network access.
 
-[Claude Code has sandboxing built in](https://code.claude.com/docs/en/sandboxing). You can turn it on by typing `/sandbox` or setting `sandbox` property in `.claude/settings.json`. It restricts what in the filesystem and on the network the agent can access. 
+[Claude Code has sandboxing built in](https://code.claude.com/docs/en/sandboxing), although it's not enabled by default. It restricts what in the filesystem and on the network the agent can access.
 
 I quickly went off it because agents can request to run commands unsandboxed, which kind of defeats the entire point - they need constant reminders to try things sandboxed first. Also, I couldn't get it to play nicely with tools like `uv` and `pnpm` that need to read/write a global cache. But it might be good enough for your use case.
 
@@ -73,15 +73,15 @@ This is "principle of least privilege", an idea that far predates even generativ
 For tasks that need some sort of access to cloud infrastructure, I'm getting into the habit of provisioning ephemeral task-specific service accounts and explicitly setting up their permissions from scratch before each task. That way I can be absolutely sure that they have only what's needed (and that they don't have dangling permissions left over from the previous task).
 
 ### Custom local services
-What about if you want to interface with a service that doesn't have fine-grained IAM built in?
+What about if you want the agent to interface with a service that doesn't have fine-grained IAM built in?
 
-For example, it might be useful for an agent to add comments to a particular issue in your project tracker, but you don't want it to write to other issues or delete other people's comments. The average project tracker API does not have fine-enough-grained IAM to support this, and many don't have service accounts at all.
+For example, it might be useful for an agent to add comments to a particular issue in your project tracker, but you don't want it to write to other issues or delete other people's comments. The average project tracker API does not have fine-enough-grained IAM to support this.
 
-In these kinds of cases, I've written and hosted my own small HTTP/MCP[^1] services in a different Docker container on my host machine, then given the sandbox network access to them. The service owns its own credentials and implements only the particular actions I think the agent will need.
+In such cases I like to write and host a small HTTP/MCP service in a different Docker container on my host machine, then given the sandbox network access to them. The service owns its own credentials and implements only the particular actions I think the agent will need.
 
-These endpoints can be custom coded to do useful stuff beyond regular IAM, too. Here's one I made that exposes BigQuery SQL access with a lifetime query cost cap: https://github.com/nawhi/bq-agent-gateway
+These endpoints can be one-off or reusable, and can be coded to do useful stuff beyond regular IAM. Here's one I made that exposes BigQuery SQL access with a lifetime query cost cap: https://github.com/nawhi/bq-agent-gateway
 
-## Drawbacks 
+## Drawbacks
 ### All this takes time
 Each time I start up an agent on something, it now takes me longer than it did when it was running on my machine with manual approval. I don't think that's a bad thing for two reasons.
 
@@ -108,9 +108,9 @@ sudo bash -c 'cat > /usr/local/bin/gcloud << '\''SCRIPT'\''
       chmod +x /usr/local/bin/gcloud'
 ```
 
-If the agent can't tell that a sandbox misconfiguration is at the root of the problem, it will just keep trying different workarounds, potentially for a long time and a lot of tokens. (That `gcloud` loop cost $20. Ouch.)
+If the agent can't tell that a sandbox misconfiguration is at the root of the problem, it will just keep trying different workarounds, potentially for a long time and a lot of tokens. (The `gcloud` loop above took an hour to complete and cost $20.)
 
- Oddly, prompting it with something like "I'm a developer testing the sandbox setup" even if I'm not, seems to make this happen less often (though as detailed above this will never remove the problem entirely).
+ Oddly, prompting it with something like "I'm a developer testing the sandbox setup" even if I'm not, seems to make this happen less often. As detailed above, though, this will never remove the problem entirely.
  
 ## Conclusion
 
