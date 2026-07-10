@@ -36,17 +36,18 @@ export const about = {
       link: 'https://triptease.com',
       technologies: [
         'TypeScript',
-        'Node.js',
-        'Cloudflare',
-        'BigQuery',
+        'Google BigQuery',
         'PostgreSQL',
         'Python',
-        'React.js',
+        'Kotlin',
+        'Terraform',
+        'Cloudflare',
+        'Google Cloud Platform'
       ],
       bio: [
-        'Designed and delivered a new version of <a href="https://www.triptease.com/en/personalization">Triptease Messages</a>, a website messaging product for hotels, from scratch to general availability.',
-        'Migrated a terabyte-scale analytics pipeline from Airflow to BigQuery scheduled queries, introducing test coverage and backfilling historic data.',
-        'Triptease engineers work full-stack, including all development, ops and SRE, pair-programming in small autonomous squads.',
+        "Maintained terabyte-scale BigQuery warehouses, including migrating legacy ETL pipelines, modelling new data points, improving the AI-readiness of internal BI tooling, and optimising customer-facing data UIs.",
+        'Designed, built and scaled to GA a new version of <a href="https://www.triptease.com/en/personalization">Triptease Messages</a> including fullstack development, data layer, warehousing, ops, and SRE.',
+        "Safely re-architected a legacy UI monolith into an app-shell + microfrontend pattern, proxying other squads' frontends through a Cloudflare Worker.",
       ],
     },
     {
