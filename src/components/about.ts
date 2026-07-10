@@ -36,7 +36,7 @@ export const about = {
       link: 'https://triptease.com',
       technologies: [
         'TypeScript',
-        'Google BigQuery',
+        'BigQuery',
         'PostgreSQL',
         'Python',
         'Kotlin',
