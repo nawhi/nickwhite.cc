@@ -9,26 +9,6 @@ export const about = {
     'I am a polyglot developer who likes simple solutions to difficult problems, living documentation, just-in-time design and the principles of software craftsmanship.',
     'I believe I owe my success to a habit of ensuring I always have a deep understanding of the technologies I work with.',
   ],
-  projects: [
-    {
-      name: 'This website!',
-      description:
-        'Built with Astro and Tailwind CSS, based on the devfolio template by Ryan Fitzgerald',
-      link: 'https://github.com/nawhi/nickwhite.cc',
-    },
-    {
-      name: 'jq-tutorial',
-      description:
-        'Interactive exercises for learning jq, a command-line JSON processor',
-      link: 'https://github.com/nawhi/jq-tutorial',
-    },
-    {
-      name: 'WebStorm Golf',
-      description:
-        'A golf-themed way of learning to use the JetBrains WebStorm IDE',
-      link: 'https://github.com/nawhi/webstorm-golf',
-    },
-  ],
   experience: [
     {
       name: 'Triptease',
@@ -96,27 +76,6 @@ export const about = {
         'Worked on button-mapping software for hardware interfaces on a film post-processing system. Worked across the full stack from usability testing and UI implementation down to optimising the display drivers. Wrote an xUnit-style unit test framework for the in-house scripting language to aid in testing my code.',
         'As an intern, built automated testing harnesses, helped maintain the FilmLight intranet, and built developer workstations.',
       ],
-    },
-  ],
-  skills: [
-    {
-      name: 'Languages & Frameworks',
-      description:
-        'JavaScript, TypeScript, Node.js, Python, C++, Clojure, Kotlin',
-    },
-    {
-      name: 'Databases',
-      description: 'PostgreSQL, MongoDB, Google BigQuery, Elasticsearch',
-    },
-    {
-      name: 'Infrastructure',
-      description:
-        'Google Cloud Platform, Amazon Web Services, Terraform, Airflow',
-    },
-    {
-      name: 'Methodologies',
-      description:
-        'Extreme Programming, Software Craftsmanship, Continuous Discovery',
     },
   ],
   education: [

@@ -36,18 +36,22 @@ const { about, education, experience, projects, skills } = content;
       ))
     }
   </Section>
-  <Section title="Skills">
-    {
-      skills.map(({ name, description }) => (
-        <SummaryItem name={name} shortDesc={description} />
-      ))
-    }
-  </Section>
-  <Section title="Projects">
-    {
-      projects.map(({ name, link, description }) => (
-        <SummaryItem name={name} link={link} shortDesc={description} />
-      ))
-    }
-  </Section>
+  {
+    skills && (
+      <Section title="Skills">
+        {skills.map(({ name, description }) => (
+          <SummaryItem name={name} shortDesc={description} />
+        ))}
+      </Section>
+    )
+  }
+  {
+    projects && (
+      <Section title="Projects">
+        {projects.map(({ name, link, description }) => (
+          <SummaryItem name={name} link={link} shortDesc={description} />
+        ))}
+      </Section>
+    )
+  }
 </BaseLayout>
