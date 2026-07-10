@@ -42,10 +42,9 @@ export const about = {
         'Kotlin',
         'Terraform',
         'Cloudflare',
-        'Google Cloud Platform'
       ],
       bio: [
-        "Maintained terabyte-scale BigQuery warehouses, including migrating legacy ETL pipelines, modelling new data points, improving the AI-readiness of internal BI tooling, and optimising customer-facing data UIs.",
+        'Maintained terabyte-scale BigQuery warehouses, including migrating legacy ETL pipelines, modelling new data points, improving the AI-readiness of internal BI tooling, and optimising customer-facing data UIs.',
         'Designed, built and scaled to GA a new version of <a href="https://www.triptease.com/en/personalization">Triptease Messages</a> including fullstack development, data layer, warehousing, ops, and SRE.',
         "Safely re-architected a legacy UI monolith into an app-shell + microfrontend pattern, proxying other squads' frontends through a Cloudflare Worker.",
       ],
@@ -70,6 +69,7 @@ export const about = {
         'Terraform',
         'React.js',
         'MongoDB',
+        'PostgreSQL',
       ],
       bio: [
         'Built a feed of hotel prices and scaled it from scratch to serving a million prices a day from over 1,000 hotels. The prices were sourced from user tracking, screen-scraping and algorithmic inference.',
