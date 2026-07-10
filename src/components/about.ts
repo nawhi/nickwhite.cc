@@ -72,9 +72,9 @@ export const about = {
         'MongoDB',
       ],
       bio: [
-        'Worked on Triptease Personalization, a website messaging product for hotels, including message components, a rich WYSIWYG content editor, NoSQL database and CDN, event tracking and analytics platform.',
-        'Previously, built a feed of hotel prices and scaled it from scratch to serving a million prices a day from over 1,000 hotels. The prices were sourced from user tracking, screen-scraping and algorithmic inference.',
-        'Triptease engineers work full-stack, including all development, ops and SRE, pair-programming in small autonomous squads.',
+        'Worked on <a href="https://www.triptease.com/en/personalization">Triptease Messages</a>, including message components, a rich WYSIWYG content editor, NoSQL database and CDN, event tracking and analytics platform.',
+        'Built a feed of hotel prices and scaled it from scratch to serving a million prices a day from over 1,000 hotels. The prices were sourced from user tracking, screen-scraping and algorithmic inference.',
+        'Created an internal browser extension, The Integrator, still in daily use by most of the company 6 years on',
       ],
     },
     {
