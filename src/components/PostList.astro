@@ -15,7 +15,7 @@ const posts = await getPostsInOrder();
           name={post.data.title}
           date={getPostDate(post)}
           shortDesc={post.data.description}
-          link={`/blog/${post.slug}/`}
+          link={`/blog/${post.id}/`}
         />
       ))
   }
