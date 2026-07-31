@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // site relies on remark plugins, Prism highlighting and custom footnote
 // labels, so opt back into the remark/rehype pipeline via @astrojs/markdown-remark.
 import { unified } from '@astrojs/markdown-remark';
-import remarkExternalLinks from 'remark-external-links';
+import rehypeExternalLinks from 'rehype-external-links';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,8 +17,10 @@ export default defineConfig({
   markdown: {
     processor: unified(),
     syntaxHighlight: 'prism',
-    remarkPlugins: [
-      [remarkExternalLinks, { target: '_blank', rel: 'noopener noreferrer' }],
+    rehypePlugins: [
+      // Successor to the deprecated remark-external-links. Adds
+      // target="_blank" rel="noopener noreferrer" to external links.
+      [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
     ],
     remarkRehype: {
       footnoteLabel: ' ',
