@@ -6,9 +6,9 @@ pubDate: 2026-05-02
 
 Since I wrote my [last coding article](/blog/bigquery-syntax/) at the end of 2024, the game has moved on... quite a lot.
 
-AI agents have Revolutionised My Workflow in two main ways. The first is that I get a lot more done. The second is that I feel terrified of admitting to getting a lot more done, because half of my peers will round on me for being a shill, and the other half will excitedly tell me about all their new AI side projects, and I don't know which I like less.
+AI agents are now a first-class part of my job, not just for writing code but also for many other "agent-shaped" tasks like log trawling, analysis, and exploratory testing. 
 
-But still, I go to work and I use them to do my job. And while they are booping and whooshing and flibbertigibbeting, I've been researching and trying ways to set up an agent in a configuration so secure that even a fully motivated adversary would not be able to do anything destructive.
+As such, while they are booping and whooshing and flibbertigibbeting, I've been researching and trying ways to set up an agent in a configuration so secure that even a fully motivated adversary would not be able to do anything destructive.
 
 ## The problem
 
