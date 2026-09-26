@@ -2,6 +2,7 @@
 title: Running unsupervised coding agents safely
 description: Could this be the end of approval fatigue?
 pubDate: 2026-05-02
+updatedDate: 2026-09-26
 ---
 
 Since I wrote my [last coding article](/blog/bigquery-syntax/) at the end of 2024, the game has moved on... quite a lot.
@@ -66,11 +67,11 @@ I moved to, and currently use, [Docker Sandbox](https://docs.docker.com/ai/sandb
 ### IAM
 When you start running an agent in the sandbox, and you find you want it to do something that needs authenticating, the temptation will be to mount or copy your own credentials into the sandbox and use those. But I'd urge you to reconsider.
 
-Instead of authenticating the agent as your own user, with all your own user's access to your cloud infrastructure, give the agent a specific service account with only the permissions that it really needs to do the job you've asked it to do. 
+Any raw credential that's available to the agent could be accidentally sent to any service or website the agent has access to, or written into any tool call or anywhere on the filesystem. Whether or not this is likely to result in an actual breach, it is a risk we could just not take: using a network proxy which can inject credentials, such as Docker Sandbox, gives the agent placeholders instead (e.g. `GH_TOKEN=proxy-injected` for GitHub) which are swapped out with the real credential on the way out of the sandbox.
 
-This is "principle of least privilege", an idea that far predates even generative AI itself.
+Also, instead of authenticating the agent as your own user, with all your own user's access to your cloud infrastructure, give the agent a specific service account with only the permissions that it really needs to do the job you've asked it to do. This is "principle of least privilege", an idea that far predates even generative AI itself.
 
-For tasks that need some sort of access to cloud infrastructure, I'm getting into the habit of provisioning ephemeral task-specific service accounts and explicitly setting up their permissions from scratch before each task. That way I can be absolutely sure that they have only what's needed (and that they don't have dangling permissions left over from the previous task).
+For tasks that need some sort of access to cloud infrastructure, I'm getting into the habit of provisioning ephemeral task-specific service accounts and explicitly setting up their permissions from scratch before each task - or, for common repo-specific tasks, adding those service account definitions to the repo's Terraform. That way I can be absolutely sure that they have only what's needed (and that they don't have dangling permissions left over from the previous task).
 
 ### Custom local services
 What about if you want the agent to interface with a service that doesn't have fine-grained IAM built in?
