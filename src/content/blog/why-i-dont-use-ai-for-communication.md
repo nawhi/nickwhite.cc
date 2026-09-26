@@ -14,7 +14,7 @@ But the more time I spend with these tools, the more uncomfortable I feel about 
 I will not use large language models to write or review:
 
 - _Informal messages addressed to a person or group._ Slack messages, whatsapps, DMs, emails, blog posts.
-- _High-impact or sensitive formal content._ Job applications, performance reviews, formal emails.
+- _High-impact or sensitive formal content._ Performance reviews, formal emails.
 
 ## Why?
 
