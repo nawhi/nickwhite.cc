@@ -15,7 +15,7 @@ Recently I've been trying to right this wrong by spending more time reading the 
 
 Large language models are fantastic tools for discovering this kind of thing. I like to paste in a query I've already written and ask if there are any newer language features I could make use of to improve the query. That's how I discovered many of these.
 
-However, I generally do _not_ ask AI to generate queries directly. I think the "facepalm moment" of realising there is a better way is a much more powerful learning stimulus if you've been through the struggle of the old way first. Also, in my domain, very subtle errors can cause huge data quality problems down the line, so it would be risky to use LLM-generated queries directly.
+However, I generally do _not_ ask AI to generate queries directly. I think the "facepalm moment" of realising there is a better way is a much more powerful learning stimulus if you've been through the struggle of the old way first. Also, in my domain, very subtle errors can cause huge data quality problems down the line, so it would be risky to use LLM-generated queries directly. [Update 2026: LLMs got much better at writing SQL in the past year or so, and I [do now involve them more](https://www.nickwhite.cc/blog/the-synopsis-pattern/) than I used to in direct querying.]
 
 ## The Features
 
