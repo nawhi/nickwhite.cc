@@ -2,7 +2,7 @@
 title: Why I don't use AI for communication
 description: The motivation behind a personal policy I've adopted.
 pubDate: 2025-09-28
-hidden: true
+updatedDate: 2026-09-26
 ---
 
 I have been excited by how AI has helped me since adopting GitHub Copilot [back in 2023](/blog/working-with-github-copilot). Since then, it and other generative AI tools have become an indispensable part of my work.
