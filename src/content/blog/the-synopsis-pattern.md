@@ -37,7 +37,7 @@ This is where the second happy accident comes in. If you've used an LLM to gener
 I speculatively added a new `synopsis` field in the query tool, documented thusly:
 
 `synopsis: string`<br/>
-`One-sentence summary of the query motivation/context; logged for audit, so no PII.`
+`One-sentence summary of the query motivation/context, logged for audit.`
 
 To my amazement, it had exactly the effect I was expecting. Agents were completely happy to explain what they were doing into this field. Including why they were doing it, and so on. They weren't ever trying to skip the field, or just adding a placeholder, and in the sessions I sampled I never once saw them lie. For example:
 
