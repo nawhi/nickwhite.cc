@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clustering in practice</title>
+<meta name="description" content="A visual walkthrough of k-means clustering on hotel guest journeys: how it works, where it goes wrong, and how to check it.">
+<meta name="author" content="Nick White">
+<link rel="canonical" href="https://nickwhite.cc/talks/clustering-in-practice/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clustering in practice">
+<meta property="og:description" content="A visual walkthrough of k-means clustering on hotel guest journeys: how it works, where it goes wrong, and how to check it.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/reset.css">
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/reveal.css">
+<style>
+/* ---- deck theme ---- */
+:root {
+  --ink: #27272a;
+  --ink-soft: #52525b;
+  --accent: #2a78d6;
+  --line: #e4e4e7;
+  --grey-dot: #d4d4d8;
+}
+.reveal-viewport { background: #fafafa; }
+.reveal { font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; color: var(--ink); font-size: 40px; }
+.reveal .slides section { text-align: left; }
+.reveal h1, .reveal h2 { font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; color: var(--ink); font-weight: 600; letter-spacing: 0; text-transform: none; }
+.reveal .rule { height: 8px; width: 4.5em; background: var(--accent); border-radius: 4px; margin: 0.4em 0 0.7em; }
+.reveal h1 { font-size: 2.1em; }
+.reveal h2 { font-size: 1.25em; margin-bottom: 0.4em; }
+.reveal .soft { color: var(--ink-soft); }
+.reveal a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.12em; }
+.reveal a:hover { text-decoration: none; }
+.reveal .closing p { margin: 0 0 0.5em; }
+.reveal .closing ul { list-style: disc; padding-left: 1.3em; }
+.reveal .closing li { margin-bottom: 0.3em; }
+.reveal .cols { display: flex; gap: 0.8em; align-items: stretch; }
+
+/* ---- journey dot field ---- */
+.reveal .viz { position: relative; }
+.reveal .gfield { position: relative; width: 980px; height: 560px; }
+.reveal .vstep { position: absolute; width: 0; height: 0; }
+.reveal .gdot {
+  position: absolute; width: 16px; height: 16px; border-radius: 50%;
+  box-sizing: border-box; background: var(--grey-dot);
+  z-index: 2;
+}
+.reveal .gdot.sq { border-radius: 3.5px; }
+.reveal .gdot.tri { border-radius: 0; width: 18px; height: 17px; clip-path: polygon(50% 4%, 100% 96%, 0% 96%); }
+.reveal .gdot.dia { border-radius: 3.5px; transform: rotate(45deg); }
+.reveal .legend { display: flex; gap: 1.1em; align-items: center; font-size: 0.5em; color: var(--ink-soft); font-weight: 500; margin-top: 0.45em; flex-wrap: wrap; }
+.reveal .legend .gdot { position: static; display: inline-block; vertical-align: -2px; margin-right: 8px; background: #a1a1aa; }
+
+/* ---- toy SVG machinery ---- */
+.reveal .toysvg { display: block; margin: 0 auto; overflow: visible; }
+.reveal .toysvg .tdot { fill: var(--grey-dot); transition: fill 0.6s, opacity 0.6s, stroke-width 0.45s; }
+.reveal .toysvg text { font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
+.reveal .toysvg .tmark { transform: translate(var(--x0), var(--y0)); transition: transform 1.1s ease, opacity 0.5s; }
+.reveal .toysvg .lset { opacity: 0; transition: opacity 0.7s; }
+.reveal .toysvg .candg { opacity: 0; transition: opacity 0.6s; }
+
+/* the running-total table */
+.reveal .meter { position: absolute; right: 24px; top: 24px; width: 320px; opacity: 0; transition: opacity 0.5s; z-index: 8; }
+.reveal .meter .mlabel { font-size: 0.42em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); text-align: right; border-bottom: 2.5px solid var(--line); padding-bottom: 6px; }
+.reveal .meter .mrow { display: flex; justify-content: space-between; align-items: baseline; opacity: 0; transition: opacity 0.45s; padding-top: 8px; }
+.reveal .meter .mrow .mk { font-size: 0.42em; font-weight: 700; color: var(--ink-soft); }
+.reveal .meter .mrow .mvv { font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; font-size: 0.85em; font-weight: 700; }
+
+/* ---- slide 2: example personas (static, no fragments) ---- */
+.reveal .viz-recap .gfield .gdot { background: var(--k4); }
+
+/* ---- slide 3: k means clustering ---- */
+.reveal .pcard {
+  background: #fff; border: 2.5px solid var(--pc); border-radius: 12px;
+  padding: 0.4em 0.6em; margin-bottom: 0.55em; position: relative;
+}
+.reveal .pcard .pname { font-weight: 700; color: var(--pc-text, var(--pc)); font-size: 0.62em; }
+.reveal .pcard .ptraits { font-size: 0.47em; color: var(--ink-soft); margin-top: 2px; }
+.reveal .pcard .pbar { height: 14px; border-radius: 7px; background: var(--pc); width: var(--bw); margin-top: 10px; }
+.reveal .pcard .prate { position: absolute; right: 14px; bottom: 10px; font-weight: 700; color: var(--pc-text, var(--pc)); font-size: 0.55em; }
+
+/* the meter occupies 344px on the right (320px + 24px inset); shifting the
+   centred svg left by half of that centres it in the space the meter leaves */
+.reveal .viz-lloyd .toysvg { transform: translateX(-172px); }
+.reveal .viz-lloyd .toysvg .tmark { opacity: 0; }
+.reveal .viz-lloyd .k1.visible ~ .toysvg .tmark { opacity: 1; }
+.reveal .viz-lloyd .k2.visible ~ .toysvg .candg { opacity: 1; }
+.reveal .viz-lloyd .k3.visible ~ .toysvg .candg { opacity: 0; }
+.reveal .viz-lloyd .k3.visible ~ .toysvg .ls0 { opacity: 0.5; }
+.reveal .viz-lloyd .k3.visible ~ .toysvg .tdot { fill: var(--c0); }
+.reveal .viz-lloyd .k3.visible ~ .meter { opacity: 1; }
+.reveal .viz-lloyd .k3.visible ~ .meter .mr1 { opacity: 1; }
+/* k4: lines clear, centroids move to the mean of their current cluster — no re-measure yet */
+.reveal .viz-lloyd .k4.visible ~ .toysvg .tmark { transform: translate(var(--x1), var(--y1)); }
+.reveal .viz-lloyd .k4.visible ~ .toysvg .ls0 { opacity: 0; }
+/* k5: re-measure from the new positions — new lines, reassigned colours, meter falls */
+.reveal .viz-lloyd .k5.visible ~ .toysvg .ls1 { opacity: 0.5; }
+.reveal .viz-lloyd .k5.visible ~ .toysvg .tdot { fill: var(--c1); }
+.reveal .viz-lloyd .k5.visible ~ .meter .mr1 { opacity: 0.5; }
+.reveal .viz-lloyd .k5.visible ~ .meter .mr2 { opacity: 1; }
+.reveal .viz-lloyd .k6.visible ~ .toysvg .tmark { transform: translate(var(--x2), var(--y2)); }
+.reveal .viz-lloyd .k6.visible ~ .toysvg .ls1 { opacity: 0; }
+.reveal .viz-lloyd .k6.visible ~ .toysvg .ls2 { opacity: 0.5; }
+.reveal .viz-lloyd .k6.visible ~ .toysvg .tdot { fill: var(--c2); }
+.reveal .viz-lloyd .k6.visible ~ .meter .mr2 { opacity: 0.5; }
+.reveal .viz-lloyd .k6.visible ~ .meter .mr3 { opacity: 1; }
+.reveal .viz-lloyd .k7.visible ~ .toysvg .tmark { transform: translate(var(--xf), var(--yf)); }
+.reveal .viz-lloyd .k7.visible ~ .toysvg .ls2 { opacity: 0; }
+.reveal .viz-lloyd .k7.visible ~ .toysvg .tdot { fill: var(--cf); }
+.reveal .viz-lloyd .k7.visible ~ .meter .mr3 { opacity: 0.5; }
+.reveal .viz-lloyd .k7.visible ~ .meter .mr4 { opacity: 1; }
+.reveal .viz-lloyd .capstack { margin-top: 0.3em; }
+.reveal .viz-lloyd .capstack .cap { display: none; font-size: 0.62em; line-height: 1.5; color: var(--ink-soft); }
+.reveal .viz-lloyd .capstack .cap0 { display: block; }
+.reveal .viz-lloyd .k1.visible ~ .capstack .cap0 { display: none; }
+.reveal .viz-lloyd .k1.visible ~ .capstack .cap1 { display: block; }
+.reveal .viz-lloyd .k2.visible ~ .capstack .cap1 { display: none; }
+.reveal .viz-lloyd .k2.visible ~ .capstack .cap2 { display: block; }
+.reveal .viz-lloyd .k3.visible ~ .capstack .cap2 { display: none; }
+.reveal .viz-lloyd .k3.visible ~ .capstack .cap3 { display: block; }
+.reveal .viz-lloyd .k4.visible ~ .capstack .cap3 { display: none; }
+.reveal .viz-lloyd .k4.visible ~ .capstack .cap4 { display: block; }
+.reveal .viz-lloyd .k5.visible ~ .capstack .cap4 { display: none; }
+.reveal .viz-lloyd .k5.visible ~ .capstack .cap5 { display: block; }
+.reveal .viz-lloyd .k6.visible ~ .capstack .cap5 { display: none; }
+.reveal .viz-lloyd .k6.visible ~ .capstack .cap6 { display: block; }
+.reveal .viz-lloyd .k7.visible ~ .capstack .cap6 { display: none; }
+.reveal .viz-lloyd .k7.visible ~ .capstack .cap7 { display: block; }
+
+/* ---- slide 5: extreme values ---- */
+.reveal .primer-svg { display: block; margin: 0 auto; overflow: visible; }
+.reveal .primer-svg text { font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
+.reveal .primer-svg .tdotp { opacity: 0; transform: translateY(-40px); transition: opacity 0.45s, transform 0.6s cubic-bezier(.3,1.4,.5,1); }
+.reveal .viz-extreme .p1.visible ~ .primer-svg .td1 { opacity: 1; transform: none; }
+.reveal .viz-extreme .p1.visible ~ .primer-svg .td2 { opacity: 1; transform: none; }
+.reveal .primer-svg .mmean, .reveal .primer-svg .mmed { transition: transform 1.0s ease; }
+.reveal .primer-svg .mmean { transform: translateX(var(--px0)); }
+.reveal .primer-svg .mmed { transform: translateX(var(--qx0)); }
+.reveal .viz-extreme .p1.visible ~ .primer-svg .mmean { transform: translateX(var(--px2)); }
+.reveal .viz-extreme .p1.visible ~ .primer-svg .mmed { transform: translateX(var(--qx2)); }
+.reveal .primer-svg .mval { opacity: 0; transition: opacity 0.4s; }
+.reveal .primer-svg .mval.v0 { opacity: 1; }
+.reveal .viz-extreme .p1.visible ~ .primer-svg .mval.v0 { opacity: 0; }
+.reveal .viz-extreme .p1.visible ~ .primer-svg .mval.v2 { opacity: 1; }
+.reveal .dragsvg .dmark { transform: translate(var(--x0), var(--y0)); transition: transform 1.1s ease, opacity 0.4s; }
+.reveal .dragsvg .mring { transform: translate(var(--x0), var(--y0)); transition: transform 1.1s ease, opacity 0.4s; }
+.reveal .dragsvg .odot { opacity: 0; transform: translateY(-46px); transition: opacity 0.5s, transform 0.7s cubic-bezier(.3,1.3,.5,1); }
+.reveal .viz-extreme .p3.visible ~ .dragwrap .dragsvg .odot { opacity: 1; transform: none; }
+.reveal .viz-extreme .p3.visible ~ .dragwrap .dragsvg .dmark { transform: translate(var(--x1), var(--y1)); }
+.reveal .viz-extreme .p3.visible ~ .dragwrap .dragsvg .mring { transform: translate(var(--x1), var(--y1)); }
+.reveal .draglegend { position: absolute; right: 24px; bottom: 10px; display: flex; flex-direction: column; gap: 0.4em; align-items: flex-start; font-size: 0.5em; font-weight: 700; color: var(--ink-soft); z-index: 8; }
+.reveal .draglegend svg { vertical-align: -5px; margin-right: 9px; }
+.reveal .viz-extreme .capstack { margin-top: 0.4em; }
+.reveal .viz-extreme .capstack .cap { display: none; font-size: 0.62em; line-height: 1.5; color: var(--ink-soft); }
+.reveal .viz-extreme .capstack .cap0 { display: block; }
+.reveal .viz-extreme .p1.visible ~ .capstack .cap0 { display: none; }
+.reveal .viz-extreme .p1.visible ~ .capstack .cap1 { display: block; }
+.reveal .viz-extreme .p3.visible ~ .capstack .cap1 { display: none; }
+.reveal .viz-extreme .p3.visible ~ .capstack .cap2 { display: block; }
+
+/* ---- slide 6: sensitivity, two strips ---- */
+.reveal .sens-svg { display: block; margin: 0 auto; overflow: visible; }
+.reveal .sens-svg text { font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
+.reveal .viz-sens .cap { font-size: 0.62em; line-height: 1.5; color: var(--ink-soft); margin-top: 0.4em; }
+
+/* ---- slide 7: it never says no ---- */
+.reveal .stack { position: relative; width: 980px; height: 560px; margin: 0 auto; transform: scale(0.92); transform-origin: top left; }
+.reveal .stack .toysvg { position: absolute; left: 0; top: 0; }
+.reveal .viz-never .svgA .tdot { fill: var(--s0); }
+.reveal .viz-never .svgA .mgrp { opacity: 0; transition: opacity 0.5s; }
+.reveal .viz-never .svgA .mg0 { opacity: 1; }
+.reveal .viz-never .n1.visible ~ .stack .svgA .tdot { fill: var(--s1); }
+.reveal .viz-never .n1.visible ~ .stack .svgA .mg0 { opacity: 0; }
+.reveal .viz-never .n1.visible ~ .stack .svgA .mg1 { opacity: 1; }
+.reveal .viz-never .n2.visible ~ .stack .svgA .tdot { fill: var(--s2); }
+.reveal .viz-never .n2.visible ~ .stack .svgA .mg1 { opacity: 0; }
+.reveal .viz-never .n2.visible ~ .stack .svgA .mg2 { opacity: 1; }
+.reveal .viz-never .n3.visible ~ .stack .svgA .tdot { fill: var(--s3); }
+.reveal .viz-never .n3.visible ~ .stack .svgA .mg2 { opacity: 0; }
+.reveal .viz-never .n3.visible ~ .stack .svgA .mg3 { opacity: 1; }
+.reveal .viz-never .n4.visible ~ .stack .svgA .tdot { fill: var(--s4); }
+.reveal .viz-never .n4.visible ~ .stack .svgA .mg3 { opacity: 0; }
+.reveal .viz-never .n4.visible ~ .stack .svgA .mg4 { opacity: 1; }
+.reveal .kchart { position: absolute; right: -10px; top: 10px; width: 380px; z-index: 8; }
+.reveal .kchart .cp, .reveal .kchart .cs { opacity: 0; transition: opacity 0.45s; }
+.reveal .kchart .cp0 { opacity: 1; }
+.reveal .viz-never .n1.visible ~ .kchart .cp1, .reveal .viz-never .n1.visible ~ .kchart .cs1 { opacity: 1; }
+.reveal .viz-never .n2.visible ~ .kchart .cp2, .reveal .viz-never .n2.visible ~ .kchart .cs2 { opacity: 1; }
+.reveal .viz-never .n3.visible ~ .kchart .cp3, .reveal .viz-never .n3.visible ~ .kchart .cs3 { opacity: 1; }
+.reveal .viz-never .n4.visible ~ .kchart .cp4, .reveal .viz-never .n4.visible ~ .kchart .cs4 { opacity: 1; }
+.reveal .viz-never .cap { font-size: 0.62em; line-height: 1.5; color: var(--ink-soft); margin-top: 0.3em; }
+.reveal .viz-never .cap p { margin: 0 0 0.6em; }
+/* ---- slide 7: how do we fix that ---- */
+.reveal .curvelabel { font-size: 0.5em; font-weight: 700; color: var(--ink-soft); margin: 0.2em 0 0.1em 0.3em; }
+.reveal .viz-fix .fixwrap { transform: scale(0.84); transform-origin: top center; margin-bottom: -86px; }
+.reveal .viz-fix .cap { font-size: 0.62em; line-height: 1.5; color: var(--ink-soft); margin-top: 0.5em; }
+.reveal .viz-fix .cap p { margin: 0 0 0.6em; }
+.reveal .minifield .curvelabel { text-align: center; margin: 0; }
+
+/* ---- slide 8: any clusters at all ---- */
+.reveal .viz-noisefit .nfmarks { opacity: 0; transition: opacity 0.5s; }
+.reveal .viz-noisefit .a1.visible ~ .nfsvg .tdot { fill: var(--nf); }
+.reveal .viz-noisefit .a1.visible ~ .nfsvg .nfmarks { opacity: 1; }
+.reveal .viz-noisefit .a1.visible ~ .meter { opacity: 1; }
+.reveal .viz-noisefit .a1.visible ~ .meter .mr1 { opacity: 1; }
+.reveal .viz-noisefit .capstack { margin-top: 0.4em; }
+.reveal .viz-noisefit .capstack .cap { display: none; font-size: 0.62em; line-height: 1.5; color: var(--ink-soft); }
+.reveal .viz-noisefit .capstack .cap0 { display: block; }
+.reveal .viz-noisefit .a1.visible ~ .capstack .cap0 { display: none; }
+.reveal .viz-noisefit .a1.visible ~ .capstack .cap1 { display: block; }
+
+/* ---- slide 9: resample, refit ---- */
+.reveal .shakebox { position: relative; }
+.reveal .viz-shake .shakesvg .tdot { fill: var(--b0); }
+.reveal .jtab { margin: 0.3em 0.3em 0; font-size: 0.42em; font-weight: 700; }
+.reveal .jtab .jline { display: flex; align-items: center; gap: 0.9em; margin-top: 7px; }
+.reveal .jtab .jbar { flex: 1; display: flex; height: 24px; border-radius: 6px; overflow: hidden; }
+.reveal .jtab .jbar span { height: 100%; }
+.reveal .jtab .jsc { width: 4.6em; text-align: right; font-size: 1.15em; font-weight: 700; font-variant-numeric: tabular-nums; }
+.reveal .jtab .jv { opacity: 0; transition: opacity 0.5s; }
+.reveal .viz-shake .r1.visible ~ .cols .jv1 { opacity: 1; }
+.reveal .viz-shake .r2.visible ~ .cols .jv2 { opacity: 1; }
+.reveal .viz-shake .r3.visible ~ .cols .jv3 { opacity: 1; }
+/* the scores arrive together on the final click, after all three bars */
+.reveal .jtab .jnum { opacity: 0; transition: opacity 0.5s; }
+.reveal .viz-shake .r4.visible ~ .cols .jnum { opacity: 1; }
+.reveal .viz-shake .r1.visible ~ .cols .shakesvg .tdot { fill: var(--b1); opacity: var(--o1); stroke: rgba(39,39,42,0.55); stroke-width: var(--w1); }
+.reveal .viz-shake .r2.visible ~ .cols .shakesvg .tdot { fill: var(--b2); opacity: var(--o2); stroke: rgba(39,39,42,0.55); stroke-width: var(--w2); }
+.reveal .viz-shake .r3.visible ~ .cols .shakesvg .tdot { fill: var(--b3); opacity: var(--o3); stroke: rgba(39,39,42,0.55); stroke-width: var(--w3); }
+.reveal .viz-shake .capstack { margin-top: 0.4em; }
+.reveal .viz-shake .capstack .cap { display: none; font-size: 0.62em; line-height: 1.5; color: var(--ink-soft); }
+.reveal .viz-shake .capstack .cap0 { display: block; }
+.reveal .viz-shake .r1.visible ~ .capstack .cap0 { display: none; }
+.reveal .viz-shake .r1.visible ~ .capstack .cap1 { display: block; }
+.reveal .viz-shake .r2.visible ~ .capstack .cap1 { display: none; }
+.reveal .viz-shake .r2.visible ~ .capstack .cap2 { display: block; }
+.reveal .viz-shake .r4.visible ~ .capstack .cap2 { display: none; }
+.reveal .viz-shake .r4.visible ~ .capstack .cap3 { display: block; }
+</style>
+
+<style>
+/* notes written onto the slides */
+.reveal .prose { font-size: 0.55em; line-height: 1.5; color: var(--ink-soft); }
+.reveal .prose p { margin: 0 0 0.75em; }
+.reveal .subtitle { font-size: 0.75em; max-width: 36em; line-height: 1.4; margin: 0 0 0.6em; }
+.reveal .prose-title { max-width: 36em; margin-top: 0; }
+.reveal .prose-below { max-width: 1500px; margin-top: 1.1em; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+  <h1>Who wants to come to my island resort?</h1>
+  <div class="rule"></div>
+  <p class="soft subtitle">An introduction to unsupervised machine learning - no engineering or mathematical background required. Enthusiasm for graphs optional.</p>
+  <div class="prose prose-title"><p>Note that the views expressed here are my own, and all examples are fictionalised.</p> <p>The premise, structure, and all words are my own. I used AI coding agents to assist with the animations.</p></div>
+</section>
+
+<section>
+    <div class="viz viz-recap">
+    <div class="cols" style="transform: scale(0.82); transform-origin: top left; margin-bottom: -104px">
+      <div style="flex: 0 0 62%">
+        <div class="gfield" style="transform: scale(0.92); transform-origin: top left">{{ field_recap }}</div>
+        <div class="legend">
+          <span><span class="gdot"></span>solo</span>
+          <span><span class="gdot sq"></span>couple</span>
+          <span><span class="gdot tri"></span>family</span>
+          <span><span class="gdot dia"></span>group</span>
+        </div>
+      </div>
+      <div style="flex: 1">
+{{ cards }}
+      </div>
+    </div>
+  </div>
+  <div class="prose prose-below"><p>To start with, here's a simplified version of the system we built. We run scripts on hotel websites that return anonymised data about website users, such as their rough location, search history on the website, and what interest-specific pages they might have browsed on the website. We wanted to use this data to help our customers get more idea of what <em>kinds of people</em> booked.</p></div>
+</section>
+
+<section>
+  <div class="viz viz-lloyd">
+    <span class="fragment vstep k1"></span>
+    <span class="fragment vstep k2"></span>
+    <span class="fragment vstep k3"></span>
+    <span class="fragment vstep k4"></span>
+    <span class="fragment vstep k5"></span>
+    <span class="fragment vstep k6"></span>
+    <span class="fragment vstep k7"></span>
+    <svg class="toysvg" width="980" height="560" viewBox="0 0 980 560">
+{{ toy_lloyd }}
+    </svg>
+    <div class="meter"><div class="mlabel">total distance</div>{{ meter_lloyd }}</div>
+    <div class="capstack">
+<p class="cap cap0">Now we understand the motivation, let's go back to a more abstract example to understand how unsupervised machine learning can pick out groups. Here is a contrived example I've picked specifically because to a human, it pretty obviously contains three main clusters. How do we get a machine to see them too?</p>
+<p class="cap cap1">We start by dropping three crosses, called centroids, completely at random.</p>
+<p class="cap cap2">For each point, we measure its distance to every centroid, and keep the nearest.</p>
+<p class="cap cap3">Here's how it looks when we pick the winner for every point, and sum all points' distances to their nearest centroid. The goal of clustering is to minimise that total distance number.</p>
+<p class="cap cap4">We then move each cross to the average position (the centre, here) of the points it just claimed.</p>
+<p class="cap cap5">Then we repeat the measurement. We can see the distance has gone down a bit.</p>
+<p class="cap cap6">And now it's gone down a bit more.</p>
+<p class="cap cap7">We're done when the distance stops falling when we update the centroids.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="viz viz-extreme">
+    <span class="fragment vstep p1"></span>
+    <span class="fragment vstep p3"></span>
+    <svg class="primer-svg" width="1350" height="264" viewBox="0 0 1480 290">
+{{ primer }}
+    </svg>
+    <div class="dragwrap" style="position: relative; margin-top: -0.1em">
+      <svg class="toysvg dragsvg" width="666" height="380" viewBox="0 0 980 560" style="display:block;margin:0 auto">
+{{ drag }}
+      </svg>
+      <div class="draglegend" aria-label="centre statistic legend">
+        <span><svg width="24" height="24" viewBox="-14 -14 28 28"><path d="M-9,-9 L9,9 M-9,9 L9,-9" stroke="#27272a" stroke-width="5.5" stroke-linecap="round" fill="none"/></svg>mean (sensitive measure)</span>
+        <span><svg width="24" height="24" viewBox="-14 -14 28 28"><circle r="9.5" fill="none" stroke="#27272a" stroke-width="4.5"/></svg>medoid (resistant measure)</span>
+      </div>
+    </div>
+    <div class="capstack">
+<p class="cap cap0">That's the basic idea, but the biggest issue with clustering is that there are a lot of subtleties that can completely change the usefulness of the output. <br/> One such footgun is the definition of 'average' in the sentence 'we move each cross to the average of its points'. <br/> Two common definitions, seen here, are mean and medoid.</p>
+<p class="cap cap1">Here, we can see that when we introduce a large value, the mean shifts but the medoid doesn't. Because of this behaviour, we call the mean a 'sensitive' measure and the medoid a 'resistant' one.</p>
+<p class="cap cap2">Here's how that would look if we were to add a few outliers to the blue cluster. Again, the sensitive mean shifts more than the medoid. <br/> A memory aid I use for this is: "Mean people are actually really sensitive."</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="viz viz-sens">
+    <svg class="sens-svg sens-top" width="1350" height="366" viewBox="0 0 1480 400">
+{{ value_strip }}
+    </svg>
+    <p class="cap">When we add units, we can make a better judgment about which measure is going to be better. In this case, the data is booking value. Many guests didn't book (so their booking value is $0) but a handful did. We definitely want the sensitive measure, as those outliers make the most difference to the hotelier's bottom line. This is where the maths needs to work with the business domain to get the most meaningful result.</p>
+  </div>
+</section>
+
+<section>
+  <div class="viz viz-never">
+    <span class="fragment vstep n1"></span>
+    <span class="fragment vstep n2"></span>
+    <span class="fragment vstep n3"></span>
+    <span class="fragment vstep n4"></span>
+    <div class="stack">
+      <svg class="toysvg svgA" width="980" height="560" viewBox="0 0 980 560">
+{{ never }}
+      </svg>
+    </div>
+    <div class="kchart">
+      <div class="mlabel" style="font-size: 0.42em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft)">total distance per k</div>
+      <svg class="toysvg" width="380" height="270" viewBox="0 0 380 270">{{ kchart }}</svg>
+    </div>
+  <div class="cap"><p>Another thing I glossed over earlier was how we picked the number of centroids. I chose 3 because it suited the contrived example but in production data how do you know that 3 is the right number to choose?</p><p>This can be a challenge because the clustering algorithm itself will always give you an answer, and the more clusters you ask for, the lower the total distance will be. You'll see in this example that as you add more clusters the maths will always make them <em>look</em> like a better fit even when we're just adding noise.</p></div></div>
+</section>
+
+<section>
+  <div class="viz viz-fix">
+    <div class="fixwrap">
+    <svg class="toysvg fixcurve" width="980" height="300" viewBox="0 0 980 300">
+{{ curve }}
+    </svg>
+    <div class="cols" style="width: 1240px; margin: 0.25em auto 0; gap: 2.2em">
+      <div class="minifield mf3" style="flex: 1">
+        <div class="curvelabel">{{ label_k3 }}</div>
+        <svg class="toysvg" width="480" height="274" viewBox="0 0 980 560">{{ mini_k3 }}</svg>
+      </div>
+      <div class="minifield mf7" style="flex: 1">
+        <div class="curvelabel">{{ label_k7 }}</div>
+    </div>
+        <svg class="toysvg" width="480" height="274" viewBox="0 0 980 560">{{ mini_k7 }}</svg>
+      </div>
+    </div>
+  <div class="cap"><p>When we don't know how to choose k, one option is to do what's called a k-sweep. The optimum k will often be where the decrease in distance in between each increment stops decreasing quite as much. This is known as the knee and it's much easier to visualise than explain in words.</p><p>Going way past the knee will result in what's called overfitting, which is where we have that situation where there are lots of clusters in a great low distance but we've missed the wood for the trees.</p></div></div>
+</section>
+
+<section>
+  <div class="viz viz-noisefit">
+    <span class="fragment vstep a1"></span>
+    <svg class="toysvg nfsvg" width="924" height="528" viewBox="0 0 980 560" style="display:block;margin:0 auto">
+{{ noisefit }}
+    </svg>
+    <div class="meter"><div class="mlabel">total distance</div>{{ meter_noise }}</div>
+  <div class="capstack">
+<p class="cap cap0">There are several other variants of the clustering-will-always-give-you-an-answer trap. Here are some points that I generated purely randomly. We can see intuitively that there are no <em>meaningful</em> clusters in this data.</p>
+<p class="cap cap1">But if you cluster it anyway... you will still get an answer!</p>
+    </div></div>
+</section>
+
+<section>
+  <div class="viz viz-shake">
+    <span class="fragment vstep r1"></span>
+    <span class="fragment vstep r2"></span>
+    <span class="fragment vstep r3"></span>
+    <span class="fragment vstep r4"></span>
+    <div class="cols" style="margin-top: 0.2em">
+      <div class="shakebox" style="flex: 1">
+        <svg class="toysvg shakesvg" width="560" height="320" viewBox="0 0 980 560">{{ shake_toy }}</svg>
+        <div class="jtab">{{ jtab_toy }}</div>
+      </div>
+      <div class="shakebox" style="flex: 1">
+        <svg class="toysvg shakesvg" width="560" height="320" viewBox="0 0 980 560">{{ shake_noise }}</svg>
+        <div class="jtab">{{ jtab_noise }}</div>
+      </div>
+    </div>
+  <div class="capstack">
+<p class="cap cap0">Fortunately, there are some standard checks for this. One such check is: what happens if you take a random sample of the points and rerun clustering on it? Do you have roughly the same groups or are the groups completely different?</p>
+<p class="cap cap1">Here's an example: we've refit clusters on not every single point but only a subset of them.</p>
+<p class="cap cap2">When we do this a few times, we can see on the left that the clusters roughly stayed in the same groups for the different subsamples, but on the right, the groups were shifting around a lot. This is known as cluster stability.</p>
+<p class="cap cap3">There's a numeric measure of this as well as a visual one, called the Jaccard index. (1 is perfectly stable and 0 is entirely unstable.) <br/> This family of checks, where we re-run the algorithm with slight tweaks and see how much the result changes, is called bootstrapping.</p>
+    </div></div>
+</section>
+
+<section>
+  <h2>Thanks for reading</h2>
+  <div class="rule"></div>
+  <div class="soft closing" style="max-width: 36em; margin-bottom: 0.5em; font-size: 0.62em">
+  <p>This was an introduction to clustering. The main things to remember are:</p>
+  <ul>
+    <li>Clustering is a powerful way to spot groups or commonalities in large amounts of data.</li>
+    <li>However, clustering always gives you an answer. It's on you to check the answer is meaningful, stable, and valuable to your stakeholders.</li>
+  </ul>
+  </div>
+  <p class="soft" style="font-size: 0.7em"><a href="/blog/">Back to the blog</a></p>
+
+</section>
+
+</div>
+</div>
+
+<script src="https://unpkg.com/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  width: 1600,
+  height: 800,
+  margin: 0.04,
+  hash: true,
+  transition: "fade",
+  transitionSpeed: "default",
+  backgroundTransition: "fade",
+  plugins: []
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+[project]
+# Not a published package - just the dependency manifest for assemble.py, which
+# builds the talk page. Run it from this directory so uv picks the manifest up:
+#
+#     uv run assemble.py
+name = "nickwhite-cc-scripts"
+version = "0.0.0"
+requires-python = ">=3.11"
+dependencies = [
+    "jinja2",
+    "numpy",
+]
