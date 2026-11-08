@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clustering in practice</title>
-<meta name="description" content="A visual walkthrough of k-means clustering on hotel guest journeys: how it works, where it goes wrong, and how to check it.">
+<meta name="description" content="A visual introduction to clustering in unsupervised machine learning.">
 <meta name="author" content="Nick White">
 <link rel="canonical" href="https://nickwhite.cc/talks/clustering-in-practice/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Clustering in practice">
-<meta property="og:description" content="A visual walkthrough of k-means clustering on hotel guest journeys: how it works, where it goes wrong, and how to check it.">
+<meta property="og:description" content="A visual introduction to clustering in unsupervised machine learning.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/reset.css" integrity="sha384-AJKv9Ui5SfA0VsFksFI9GuA1ztX9Ca3CLP6HGfX4YY/tYSVodC+PUszaQZFIlkuy" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/reveal.css" integrity="sha384-YgvgKeZJykuztG+iQPoZHNZENTFZvOcOJ/uRzmJTje6GHYN9zAw+y5rx/L8MQKA/" crossorigin="anonymous">
@@ -252,10 +252,10 @@
 <div class="reveal">
 <div class="slides">
 <section>
-  <h1>Who wants to come to my island resort?</h1>
+  <h1>Who is searching on my hotel?</h1>
   <div class="rule"></div>
-  <p class="soft subtitle">An introduction to unsupervised machine learning - no engineering or mathematical background required. Enthusiasm for graphs optional.</p>
-  <div class="prose prose-title"><p>Note that the views expressed here are my own, and all examples are fictionalised.</p> <p>The premise, structure, and all words are my own. I used AI coding agents to assist with the animations.</p></div>
+  <p class="soft subtitle">A visual introduction to unsupervised machine learning.</p>
+  <div class="prose prose-title"><p>Premise, structure, and all words by Nick White. Animations by Claude.</p></div>
 </section>
 
 <section>
@@ -275,7 +275,10 @@
       </div>
     </div>
   </div>
-  <div class="prose prose-below"><p>To start with, here's a simplified version of the system we built. We run scripts on hotel websites that return anonymised data about website users, such as their rough location, search history on the website, and what interest-specific pages they might have browsed on the website. We wanted to use this data to help our customers get more idea of what <em>kinds of people</em> booked.</p></div>
+  <div class="prose prose-below">
+      <p>Here's a simplified version of a system my team built recently. The company runs scripts on hotel websites and wanted to analyse the resulting data about (anonymised) website users, such as their rough location, room search history on the website, and what interest-specific pages they might have browsed. We wanted to use this to help our customers, who are mostly non-technical, get a broader idea of what kinds of people were searching and booking.</p>
+      <p>To achieve this, we need to look for groups and similarities in the data. One way of achieving this is using a technique called clustering.</p>
+  </div>
 </section>
 
 <section>
@@ -292,11 +295,11 @@
     </svg>
     <div class="meter"><div class="mlabel">total distance</div>{{ meter_lloyd }}</div>
     <div class="capstack">
-<p class="cap cap0">Now we understand the motivation, let's go back to a more abstract example to understand how unsupervised machine learning can pick out groups. Here is a contrived example I've picked specifically because to a human, it pretty obviously contains three main clusters. How do we get a machine to see them too?</p>
-<p class="cap cap1">We start by dropping three crosses, called centroids, completely at random.</p>
+<p class="cap cap0">Let's start with an example of some data points. To a human, it pretty obviously contains three main clusters. How do we get a machine to see them too?</p>
+<p class="cap cap1">We start by dropping three crosses (called centroids) completely at random.</p>
 <p class="cap cap2">For each point, we measure its distance to every centroid, and keep the nearest.</p>
-<p class="cap cap3">Here's how it looks when we pick the winner for every point, and sum all points' distances to their nearest centroid. The goal of clustering is to minimise that total distance number.</p>
-<p class="cap cap4">We then move each cross to the average position (the centre, here) of the points it just claimed.</p>
+<p class="cap cap3">We then sum all points' distances to their nearest centroid. The goal of clustering is to minimise that total distance number.</p>
+<p class="cap cap4">We then move each cross to the average position (i.e. the centre) of the points it just claimed.</p>
 <p class="cap cap5">Then we repeat the measurement. We can see the distance has gone down a bit.</p>
 <p class="cap cap6">And now it's gone down a bit more.</p>
 <p class="cap cap7">We're done when the distance stops falling when we update the centroids.</p>
@@ -321,9 +324,9 @@
       </div>
     </div>
     <div class="capstack">
-<p class="cap cap0">That's the basic idea, but the biggest issue with clustering is that there are a lot of subtleties that can completely change the usefulness of the output. <br/> One such footgun is the definition of 'average' in the sentence 'we move each cross to the average of its points'. <br/> Two common definitions, seen here, are mean and medoid.</p>
-<p class="cap cap1">Here, we can see that when we introduce a large value, the mean shifts but the medoid doesn't. Because of this behaviour, we call the mean a 'sensitive' measure and the medoid a 'resistant' one.</p>
-<p class="cap cap2">Here's how that would look if we were to add a few outliers to the blue cluster. Again, the sensitive mean shifts more than the medoid. <br/> A memory aid I use for this is: "Mean people are actually really sensitive."</p>
+<p class="cap cap0">Clustering is a powerful technique, but it has a few gotchas we must be aware of. One such is the definition of 'average' in the sentence 'we move each cross to the average of its points'.</p><p>Two common definitions, seen here, are mean and medoid.</p>
+<p class="cap cap1">When we introduce a few large values to the dataset, the mean shifts but the medoid doesn't. Because of this behaviour, we call the mean a 'sensitive' measure and the medoid a 'resistant' one.</p>
+<p class="cap cap2">Adding a few outliers to the blue cluster produces the same behaviour: the sensitive mean (X) shifts more than the medoid (O).</p><p>A memory aid I use for this is: "Mean people are actually really sensitive."</p>
     </div>
   </div>
 </section>
@@ -333,7 +336,7 @@
     <svg class="sens-svg sens-top" width="1350" height="366" viewBox="0 0 1480 400">
 {{ value_strip }}
     </svg>
-    <p class="cap">When we add units, we can make a better judgment about which measure is going to be better. In this case, the data is booking value. Many guests didn't book (so their booking value is $0) but a handful did. We definitely want the sensitive measure, as those outliers make the most difference to the hotelier's bottom line. This is where the maths needs to work with the business domain to get the most meaningful result.</p>
+    <p class="cap">Often, knowing which average to use comes down to the context of the problem. In this case, with booking value data, many guests didn't book (so their booking value is $0) but a handful did. We definitely want the sensitive measure, as we want the difference that those bookers make to the hotelier's bottom line to be reflected in the clusters.</p>
   </div>
 </section>
 
@@ -352,7 +355,7 @@
       <div class="mlabel" style="font-size: 0.42em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft)">total distance per k</div>
       <svg class="toysvg" width="380" height="270" viewBox="0 0 380 270">{{ kchart }}</svg>
     </div>
-  <div class="cap"><p>Another thing I glossed over earlier was how we picked the number of centroids. I chose 3 because it suited the contrived example but in production data how do you know that 3 is the right number to choose?</p><p>This can be a challenge because the clustering algorithm itself will always give you an answer, and the more clusters you ask for, the lower the total distance will be. You'll see in this example that as you add more clusters the maths will always make them <em>look</em> like a better fit even when we're just adding noise.</p></div></div>
+  <div class="cap"><p>Another thing I glossed over earlier was how we picked the number of clusters we want (which we call "k"). In that example we chose k=3, and there happened to be 3 clear clusters. How do you know the right number to choose when you can't eyeball the data?</p><p>This example illustrates how higher k always produces lower distance numbers, making higher k look naively like a "better" fit even when they are clearly not.</p></div></div>
 </section>
 
 <section>
@@ -372,7 +375,7 @@
         <svg class="toysvg" width="480" height="274" viewBox="0 0 980 560">{{ mini_k7 }}</svg>
       </div>
     </div>
-  <div class="cap"><p>When we don't know how to choose k, one option is to do what's called a k-sweep. The optimum k will often be where the decrease in distance in between each increment stops decreasing quite as much. This is known as the knee and it's much easier to visualise than explain in words.</p><p>Going way past the knee will result in what's called overfitting, which is where we have that situation where there are lots of clusters in a great low distance but we've missed the wood for the trees.</p></div></div>
+  <div class="cap"><p>When we don't know how to choose k, one option is to do what's called a k-sweep. The optimum k will often be where the decrease in distance in between each increment stops decreasing quite as much. This is known as the knee and it's much easier to visualise than explain in words.</p><p>Going way past the knee means overfitting, which is a technical term for "not seeing the wood for the trees."</p></div></div>
 </section>
 
 <section>
@@ -383,8 +386,8 @@
     </svg>
     <div class="meter"><div class="mlabel">total distance</div>{{ meter_noise }}</div>
   <div class="capstack">
-<p class="cap cap0">There are several other variants of the clustering-will-always-give-you-an-answer trap. Here are some points that I generated purely randomly. We can see intuitively that there are no <em>meaningful</em> clusters in this data.</p>
-<p class="cap cap1">But if you cluster it anyway... you will still get an answer!</p>
+<p class="cap cap0">There are several other variants of the clustering-will-always-give-you-an-answer trap. Here are some points that I generated purely randomly. We can see intuitively that there are no meaningful clusters in this data.</p>
+<p class="cap cap1">But if you run with it anyway... you will still get clusters, just meaningless ones!</p>
     </div></div>
 </section>
 
@@ -419,7 +422,7 @@
   <p>This was an introduction to clustering. The main things to remember are:</p>
   <ul>
     <li>Clustering is a powerful way to spot groups or commonalities in large amounts of data.</li>
-    <li>However, clustering always gives you an answer. It's on you to check the answer is meaningful, stable, and valuable to your stakeholders.</li>
+    <li>However, clustering always gives you an answer. It's on you to check the answer is meaningful, stable, and valuable in context.</li>
   </ul>
   </div>
   <p class="soft" style="font-size: 0.7em"><a href="/blog/">Back to the blog</a></p>
