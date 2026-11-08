@@ -6,7 +6,7 @@ description: 'A bag of easily digestible tips for improving your Claude Code set
 
 The world of AI workflow optimisation can be quite intense. On the one hand, it's fantastic that we have so many new ways to configure these tools. On the other, given just _how_ infinitely customisable they are, it quickly becomes pretty overwhelming. 
 
-As such, here are several basic, "boring", low-barrier-to-entry tips for Claude Code setup. Most are such trivial improvements that it's slightly embarrassing how long it took me to find them out - but they also things I still see others struggle with.
+As such, here are several basic, "boring", low-barrier-to-entry tips for Claude Code setup. Most are such trivial improvements that it's slightly embarrassing how long it took me to find them out - but also things I still see others struggle with.
 
 ## Keeping it alive
 Sometimes I leave an agent running unsupervised (in a nicely [isolated environment](/blog/running-agents-autonomously), of course) and go and do something else in the big outside world. I was finding that my machine went to sleep, interrupting the response streaming from Anthropic and stopping the agent.
